@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="description" content="BypassX — Vượt link rút gọn link4m, adfly, funking.io nhanh nhất. Miễn phí, không đăng nhập.">
+<title>BypassX — Vượt Link Rút Gọn</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#08080e;--sf:#0f0f18;--sf2:#14141f;--bd:#1c1c2e;--bd2:#252535;--ac:#00ff88;--ac2:#ff4466;--go:#ffd700;--go2:#ffaa00;--tx:#e8e8f0;--mu:#4a4a60}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--tx);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden}
+.grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(0,255,136,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.02) 1px,transparent 1px);background-size:44px 44px}
+.wrap{max-width:760px;margin:0 auto;padding:44px 16px 80px;position:relative;z-index:1}
+/* header */
+.hdr{text-align:center;margin-bottom:32px}
+.ltag{font-size:10px;letter-spacing:6px;color:var(--ac);font-family:'Space Mono',monospace;text-transform:uppercase;margin-bottom:12px;opacity:.7}
+h1{font-size:clamp(2rem,8vw,3.8rem);font-weight:800;line-height:1;letter-spacing:-2px;margin-bottom:8px}
+h1 span{color:var(--ac)}
+.sub{color:var(--mu);font-size:.85rem;font-family:'Space Mono',monospace}
+/* topbar */
+.topbar{display:flex;justify-content:flex-end;margin-bottom:14px}
+.btn-vip{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);color:var(--go);font-family:'Space Mono',monospace;font-size:.72rem;padding:9px 16px;border-radius:8px;cursor:pointer;font-weight:700;letter-spacing:1px;-webkit-appearance:none;touch-action:manipulation}
+.btn-vip:active{opacity:.7}
+/* tabs */
+.tabs{display:flex;gap:5px;margin-bottom:16px;background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:5px}
+.tab{flex:1;padding:11px 4px;border:none;border-radius:8px;background:none;color:var(--mu);font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;transition:all .2s}
+.tab.active{background:var(--sf2);color:var(--tx);border:1px solid var(--bd2)}
+.tab:active{opacity:.7}
+/* card */
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:20px;margin-bottom:16px;position:relative}
+.card-line{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--ac),transparent);opacity:.35;border-radius:16px 16px 0 0}
+.card-line-gold{background:linear-gradient(90deg,transparent,var(--go),transparent);opacity:.5}
+/* vip bar */
+.vbar{display:flex;align-items:center;gap:8px;margin-bottom:16px;padding:10px 13px;border-radius:10px;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.15);flex-wrap:wrap}
+.badge{font-size:.64rem;font-family:'Space Mono',monospace;letter-spacing:2px;font-weight:700;padding:3px 9px;border-radius:5px;text-transform:uppercase}
+.bf{background:rgba(255,255,255,.07);color:var(--mu)}
+.bv{background:var(--go);color:#000}
+.vinfo{font-size:.76rem;color:var(--mu);font-family:'Space Mono',monospace}
+.vinfo b{color:var(--go)}
+/* input */
+.irow{display:flex;gap:8px;margin-bottom:14px;flex-direction:column}
+@media(min-width:480px){.irow{flex-direction:row}}
+.irow input{flex:1;background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:13px 14px;color:var(--tx);font-family:'Space Mono',monospace;font-size:.82rem;outline:none;-webkit-appearance:none;transition:border-color .2s}
+.irow input:focus{border-color:var(--ac)}
+.irow input::placeholder{color:var(--mu)}
+.btn-bp{background:var(--ac);color:#000;border:none;border-radius:10px;padding:14px 20px;font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px}
+.btn-bp:active:not(:disabled){opacity:.8}
+.btn-bp:disabled{opacity:.5;cursor:not-allowed}
+/* sites */
+.slabel{font-size:.67rem;color:var(--mu);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:8px;text-transform:uppercase}
+.slist{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.stag{font-family:'Space Mono',monospace;font-size:.67rem;padding:6px 11px;border-radius:6px;letter-spacing:.5px;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;transition:transform .1s,filter .15s;display:inline-block}
+.stag:active{transform:scale(.93);filter:brightness(1.4)}
+.stag.f{background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.14);color:var(--ac)}
+.stag.p{background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.18);color:var(--go2)}
+/* result */
+.rbox{background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-top:4px;display:none}
+.rbox.show{display:block}
+.rlbl{font-size:.66rem;font-family:'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.rl-loading{color:#ffaa00}.rl-success{color:var(--ac)}.rl-error{color:var(--ac2)}
+.rurl{font-family:'Space Mono',monospace;font-size:.78rem;color:var(--tx);word-break:break-all;line-height:1.6;margin-bottom:12px;background:var(--sf);padding:11px 12px;border-radius:8px;border:1px solid var(--bd);border-left:3px solid var(--ac)}
+.brow{display:flex;gap:8px;flex-wrap:wrap}
+.bsm{font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;padding:9px 16px;border-radius:8px;cursor:pointer;border:none;-webkit-appearance:none;touch-action:manipulation;text-decoration:none;display:inline-flex;align-items:center;gap:5px;min-height:42px}
+.bsm:active{opacity:.75}
+.bsm-open{background:var(--ac);color:#000}
+.bsm-cp{background:var(--bd2);color:var(--tx)}
+/* spinner */
+.spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,170,0,.3);border-top-color:#ffaa00;border-radius:50%;animation:rot .6s linear infinite;vertical-align:middle;margin-right:6px}
+.bspin{width:14px;height:14px;border:2px solid rgba(0,0,0,.3);border-top-color:#000;border-radius:50%;animation:rot .6s linear infinite;display:inline-block}
+/* batch */
+.barea{background:var(--bg);border:1px solid var(--bd);border-radius:10px;width:100%;min-height:100px;padding:13px 14px;color:var(--tx);font-family:'Space Mono',monospace;font-size:.78rem;resize:vertical;outline:none;line-height:1.7;-webkit-appearance:none;display:block;margin-bottom:12px;transition:border-color .2s}
+.barea:focus{border-color:var(--go)}
+.barea::placeholder{color:var(--mu)}
+.btn-go{background:var(--go);color:#000;border:none;border-radius:10px;padding:13px 20px;font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;display:inline-flex;align-items:center;gap:8px;min-height:48px}
+.btn-go:active:not(:disabled){opacity:.8}
+.btn-go:disabled{opacity:.5;cursor:not-allowed}
+.bi{background:var(--sf);border:1px solid var(--bd);border-radius:9px;padding:11px 13px;margin-bottom:7px}
+.bi-src{font-family:'Space Mono',monospace;font-size:.67rem;color:var(--mu);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bi-dst{font-family:'Space Mono',monospace;font-size:.74rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bok{color:var(--ac)}.berr{color:var(--ac2)}
+/* vip lock */
+.vlock{background:rgba(8,8,14,.85);border:1px solid rgba(255,215,0,.2);border-radius:12px;padding:24px;text-align:center}
+.vlock-icon{font-size:2rem;margin-bottom:8px}
+.vlock-title{font-weight:800;font-size:.95rem;color:var(--go);margin-bottom:6px}
+.vlock-desc{font-family:'Space Mono',monospace;font-size:.74rem;color:var(--mu);margin-bottom:14px;line-height:1.7}
+.btn-unlock{background:var(--go);color:#000;border:none;border-radius:9px;padding:11px 22px;font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;min-height:44px}
+.btn-unlock:active{opacity:.8}
+/* history */
+.sec-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.sec-ttl{font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--mu);font-family:'Space Mono',monospace}
+.btn-clr{background:none;border:1px solid var(--bd);color:var(--mu);font-family:'Space Mono',monospace;font-size:.67rem;padding:5px 10px;border-radius:6px;cursor:pointer;-webkit-appearance:none;touch-action:manipulation}
+.btn-clr:active{border-color:var(--ac2);color:var(--ac2)}
+.hi{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:11px 13px;display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.hdot{width:6px;height:6px;border-radius:50%;background:var(--ac);flex-shrink:0}
+.htxt{flex:1;min-width:0}
+.hsrc{font-family:'Space Mono',monospace;font-size:.66rem;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdst{font-family:'Space Mono',monospace;font-size:.73rem;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbtn{background:none;border:1px solid var(--bd);color:var(--mu);font-size:.65rem;padding:5px 9px;border-radius:6px;cursor:pointer;font-family:'Space Mono',monospace;flex-shrink:0;-webkit-appearance:none;touch-action:manipulation;min-height:32px}
+.hbtn:active{border-color:var(--ac);color:var(--ac)}
+.empty{text-align:center;color:var(--mu);font-family:'Space Mono',monospace;font-size:.76rem;padding:20px}
+/* guide */
+.gsec{margin-bottom:22px}
+.gt{font-size:.67rem;letter-spacing:3px;text-transform:uppercase;font-family:'Space Mono',monospace;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.gt::after{content:'';flex:1;height:1px;background:var(--bd)}
+.gstep{display:flex;gap:12px;align-items:flex-start;background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:12px 13px;margin-bottom:8px}
+.sn{width:24px;height:24px;border-radius:7px;background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.2);color:var(--ac);font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sn-g{background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.25);color:var(--go)}
+.st{font-weight:700;font-size:.83rem;margin-bottom:3px}
+.sd{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--mu);line-height:1.7}
+.sd b{color:var(--tx)}
+.itag{display:inline-block;background:var(--sf);border:1px solid var(--bd2);border-radius:4px;padding:1px 7px;font-size:.68rem;color:var(--ac);margin:1px}
+.gnote{background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.1);border-radius:9px;padding:12px 13px;font-family:'Space Mono',monospace;font-size:.72rem;color:var(--mu);line-height:1.8;margin-top:8px}
+.gnote b{color:var(--ac)}
+/* modal */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:100;display:none;align-items:flex-end;justify-content:center;pointer-events:none}
+.overlay.open{display:flex;pointer-events:all}
+@media(min-width:580px){.overlay{align-items:center;padding:20px}}
+.modal{background:var(--sf);border:1px solid rgba(255,215,0,.22);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:460px;position:relative;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+@media(min-width:580px){.modal{border-radius:20px;padding:28px 26px 32px}}
+.mhandle{width:40px;height:4px;background:var(--bd2);border-radius:2px;margin:0 auto 18px}
+@media(min-width:580px){.mhandle{display:none}}
+.mcls{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.07);border:1px solid var(--bd);color:var(--mu);width:32px;height:32px;border-radius:8px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-appearance:none;touch-action:manipulation}
+.mcls:active{opacity:.7}
+.mttl{font-size:1.35rem;font-weight:800;letter-spacing:-1px;margin-bottom:4px;color:var(--go)}
+.msub{color:var(--mu);font-family:'Space Mono',monospace;font-size:.74rem;margin-bottom:16px}
+.mtabs{display:flex;gap:5px;margin-bottom:16px;background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:4px}
+.mtab{flex:1;padding:9px 4px;border:none;border-radius:7px;background:none;color:var(--mu);font-family:'Syne',sans-serif;font-weight:700;font-size:.76rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;transition:all .2s}
+.mtab.active{background:var(--sf);color:var(--tx);border:1px solid var(--bd)}
+.mtab:active{opacity:.7}
+/* card charge */
+.clbl{font-size:.64rem;font-family:'Space Mono',monospace;color:var(--mu);margin-bottom:7px;letter-spacing:1px;text-transform:uppercase}
+.netrow{display:flex;gap:7px;margin-bottom:14px}
+.nbt{flex:1;padding:10px 4px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--mu);font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;transition:all .2s;min-height:44px}
+.nbt.active{border-color:var(--go);background:rgba(255,215,0,.08);color:var(--go)}
+.nbt:active{opacity:.7}
+.amtrow{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.abt{padding:8px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--mu);font-family:'Space Mono',monospace;font-size:.72rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;min-height:36px}
+.abt.active{border-color:var(--go);background:rgba(255,215,0,.08);color:var(--go)}
+.abt:active{opacity:.7}
+.warn{background:rgba(255,68,102,.06);border:1px solid rgba(255,68,102,.2);border-radius:8px;padding:9px 12px;margin-bottom:12px;font-family:'Space Mono',monospace;font-size:.7rem;color:var(--ac2);line-height:1.7}
+.cinputs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px}
+@media(max-width:360px){.cinputs{grid-template-columns:1fr}}
+.cinput{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:9px;padding:12px;color:var(--tx);font-family:'Space Mono',monospace;font-size:.8rem;outline:none;-webkit-appearance:none;transition:border-color .2s}
+.cinput:focus{border-color:var(--go)}
+.cinput.err{border-color:var(--ac2)}
+.cinput::placeholder{color:var(--mu)}
+.pkgbox{background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.14);border-radius:10px;padding:12px;margin-bottom:13px}
+.pkgbtns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.pbt{padding:10px 6px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--mu);font-family:'Space Mono',monospace;font-size:.72rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;text-align:center;min-height:42px}
+.pbt.active{border-color:var(--go);background:rgba(255,215,0,.1);color:var(--go);font-weight:700}
+.pbt:active{opacity:.7}
+.pkgnote{font-size:.7rem;font-family:'Space Mono',monospace;color:var(--mu);margin-top:8px;line-height:1.6}
+.pkgnote b{color:var(--go)}
+.btn-sub{width:100%;background:var(--go);color:#000;border:none;border-radius:10px;padding:14px;font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px}
+.btn-sub:active:not(:disabled){opacity:.8}
+.btn-sub:disabled{opacity:.5;cursor:not-allowed}
+.cst{display:none;margin-top:12px;padding:12px 13px;border-radius:9px;font-family:'Space Mono',monospace;font-size:.75rem;line-height:1.8}
+.key-res{background:var(--bg);border:1px solid rgba(0,255,136,.25);border-radius:9px;padding:12px;font-size:.85rem;font-weight:700;letter-spacing:2px;text-align:center;color:var(--ac);font-family:'Space Mono',monospace;margin:10px 0;word-break:break-all}
+.btn-cpkey{width:100%;padding:9px;border-radius:8px;border:1px solid rgba(0,255,136,.25);background:rgba(0,255,136,.07);color:var(--ac);font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;min-height:40px}
+.btn-cpkey:active{opacity:.7}
+.kinput{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:9px;padding:12px 13px;color:var(--tx);font-family:'Space Mono',monospace;font-size:.8rem;outline:none;-webkit-appearance:none;transition:border-color .2s;margin-bottom:10px}
+.kinput:focus{border-color:var(--go)}
+.kinput.err{border-color:var(--ac2)}
+.kinput::placeholder{color:var(--mu)}
+.btn-act{width:100%;background:var(--go);color:#000;border:none;border-radius:9px;padding:13px;font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;min-height:48px}
+.btn-act:active:not(:disabled){opacity:.8}
+.btn-act:disabled{opacity:.5;cursor:not-allowed}
+/* splash dots */
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--bd2);transition:all .3s;display:inline-block}
+.sdot.active{width:22px;border-radius:3px;background:var(--ac)}
+/* toast */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(90px);background:var(--sf);border:1px solid var(--bd);color:var(--tx);font-family:'Space Mono',monospace;font-size:.75rem;font-weight:700;padding:10px 18px;border-radius:10px;transition:transform .3s ease;z-index:999;pointer-events:none;white-space:nowrap;max-width:88vw;overflow:hidden;text-overflow:ellipsis}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.s{border-color:rgba(0,255,136,.4);color:var(--ac)}
+.toast.e{border-color:rgba(255,68,102,.4);color:var(--ac2)}
+@keyframes rot{to{transform:rotate(360deg)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="wrap">
+  <div class="hdr">
+    <div class="ltag">// bypass tool v4.0</div>
+    <h1>BYPASS<span>X</span></h1>
+    <p class="sub">vượt link rút gọn &amp; quảng cáo ngay lập tức</p>
+  </div>
+  <div class="topbar">
+    <button class="btn-vip" onclick="openModal()">★ Nâng cấp VIP</button>
+  </div>
+  <div class="tabs">
+    <button class="tab active" data-tab="single" onclick="switchTab('single')">⚡ Single</button>
+    <button class="tab" data-tab="batch" id="batchTab" onclick="switchTab('batch')">⧉ Batch</button>
+    <button class="tab" data-tab="guide" onclick="switchTab('guide')">📖 Hướng dẫn</button>
+  </div>
+
+  <!-- SINGLE -->
+  <div class="card" id="pSingle">
+    <div class="card-line"></div>
+    <div class="vbar">
+      <span class="badge bf" id="vipBadge">FREE</span>
+      <span class="vinfo" id="vipInfo">Bypass thông thường · <b id="usageCnt">5</b> lượt/ngày còn lại</span>
+    </div>
+    <div class="irow">
+      <input type="url" id="linkInput" placeholder="Dán link rút gọn vào đây..." autocomplete="off" inputmode="url"/>
+      <button class="btn-bp" id="btnBypass" onclick="doBypass()">
+        <span id="bpTxt">⚡ Bypass</span>
+      </button>
+    </div>
+    <div class="slabel">▸ Free hỗ trợ (bấm để thử):</div>
+    <div class="slist">
+      <span class="stag f" onclick="fillLink('https://link4m.co/abcxyz')">link4m</span>
+      <span class="stag f" onclick="fillLink('https://funking.io/abcxyz')">funking.io</span>
+      <span class="stag f" onclick="fillLink('https://adf.ly/abcxyz')">adfly</span>
+      <span class="stag f" onclick="fillLink('https://bc.vc/abcxyz')">bc.vc</span>
+      <span class="stag f" onclick="fillLink('https://cutt.ly/abcxyz')">cutt.ly</span>
+      <span class="stag f" onclick="fillLink('https://shorte.st/abcxyz')">shorte.st</span>
+      <span class="stag f" onclick="fillLink('https://t.ly/abcxyz')">t.ly</span>
+      <span class="stag f" onclick="fillLink('https://linkfly.to/abcxyz')">linkfly</span>
+      <span class="stag f" onclick="fillLink('https://short.io/abcxyz')">short.io</span>
+    </div>
+    <div class="slabel">▸ VIP mới bypass được:</div>
+    <div class="slist">
+      <span class="stag p" onclick="fillLinkVIP('https://linkvertise.com/abcxyz')">linkvertise</span>
+      <span class="stag p" onclick="fillLinkVIP('https://sub2unlock.com/abcxyz')">sub2unlock</span>
+      <span class="stag p" onclick="fillLinkVIP('https://loot.link/abcxyz')">loot.link</span>
+      <span class="stag p" onclick="fillLinkVIP('https://rekonise.com/abcxyz')">rekonise</span>
+      <span class="stag p" onclick="fillLinkVIP('https://socialwolvez.com/abcxyz')">socialwolvez</span>
+      <span class="stag p" onclick="fillLinkVIP('https://linkvip.net/abcxyz')">linkvip</span>
+    </div>
+    <div class="rbox" id="rbox">
+      <div class="rlbl" id="rlbl"></div>
+      <div id="rcnt"></div>
+    </div>
+  </div>
+
+  <!-- BATCH -->
+  <div class="card" id="pBatch" style="display:none">
+    <div class="card-line card-line-gold"></div>
+    <div id="batchContent"></div>
+  </div>
+
+  <!-- GUIDE -->
+  <div class="card" id="pGuide" style="display:none">
+    <div class="card-line"></div>
+    <div class="gsec">
+      <div class="gt">★ Cách lấy VIP Key</div>
+      <div class="gstep"><div class="sn sn-g">1</div><div><div class="st">Chọn gói VIP</div><div class="sd">Nhấn <b>★ Nâng cấp VIP</b> → chọn gói <b>1 tuần / 1 tháng / 1 năm / Vĩnh viễn</b></div></div></div>
+      <div class="gstep"><div class="sn sn-g">2</div><div><div class="st">Nạp thẻ cào</div><div class="sd">Chọn nhà mạng → mệnh giá → nhập mã thẻ + serial → nạp<br>Hỗ trợ: <b>Viettel · Vinaphone · Mobifone</b></div></div></div>
+      <div class="gstep"><div class="sn sn-g">3</div><div><div class="st">Nhận key &amp; kích hoạt</div><div class="sd">Key dạng <b>BYPASSX-XXXX-XXXX-XXXX</b> hiện ngay sau khi nạp thành công</div></div></div>
+    </div>
+    <div class="gsec">
+      <div class="gt">⚙ Bypass thủ công</div>
+      <div class="gstep"><div class="sn">①</div><div><div class="st">Link4m / Linkfly</div><div class="sd">F12 → Console → gõ <span class="itag">timer=0</span> → Enter</div></div></div>
+      <div class="gstep"><div class="sn">②</div><div><div class="st">Funking.io</div><div class="sd">F12 → Network → XHR → reload → tìm <span class="itag">destination</span></div></div></div>
+      <div class="gstep"><div class="sn">③</div><div><div class="st">Adfly / Shorte.st</div><div class="sd">Đợi 5s → nhấn <b>Skip Ad</b> góc trên phải</div></div></div>
+      <div class="gnote"><b>💡 Nhanh nhất:</b> Dùng tab ⚡ Single — bypass tự động 1–3 giây</div>
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div style="margin-bottom:16px">
+    <div class="sec-hdr">
+      <div class="sec-ttl">// Lịch sử bypass</div>
+      <button class="btn-clr" onclick="clearHist()">Xóa hết</button>
+    </div>
+    <div id="histList"></div>
+  </div>
+
+  <div style="text-align:center;color:var(--mu);font-family:'Space Mono',monospace;font-size:.67rem;line-height:2;margin-top:32px">
+    BypassX v4.0 · không lưu server · dùng có trách nhiệm
+  </div>
+</div>
+
+<!-- SPLASH -->
+<div class="overlay" id="splashModal">
+  <div class="modal" style="border-radius:20px 20px 0 0">
+    <div class="mhandle"></div>
+    <button class="mcls" onclick="closeSplash()">✕</button>
+    <div style="display:flex;gap:5px;justify-content:center;margin-bottom:20px">
+      <span class="sdot active" id="sd0"></span><span class="sdot" id="sd1"></span><span class="sdot" id="sd2"></span>
+    </div>
+    <div id="sSlides" style="max-height:68vh;overflow-y:auto;-webkit-overflow-scrolling:touch">
+      <!-- slide 0 -->
+      <div id="ss0">
+        <div style="font-size:2rem;margin-bottom:10px">⚡</div>
+        <div style="font-size:1.15rem;font-weight:800;margin-bottom:6px;letter-spacing:-.5px">Nguyên lý hoạt động</div>
+        <div style="font-size:.75rem;color:var(--mu);font-family:'Space Mono',monospace;margin-bottom:16px">BypassX vượt link rút gọn như thế nào?</div>
+        <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:13px;display:flex;gap:11px;margin-bottom:9px">
+          <span style="font-size:1.1rem;flex-shrink:0">🔗</span>
+          <div><div style="font-weight:700;font-size:.82rem;margin-bottom:3px">Link rút gọn là gì?</div><div style="font-size:.72rem;color:var(--mu);font-family:'Space Mono',monospace;line-height:1.6">Các trang như link4m, adfly ẩn link thật và bắt xem quảng cáo trước khi cho qua.</div></div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:13px;display:flex;gap:11px;margin-bottom:9px">
+          <span style="font-size:1.1rem;flex-shrink:0">🤖</span>
+          <div><div style="font-weight:700;font-size:.82rem;margin-bottom:3px">BypassX làm gì?</div><div style="font-size:.72rem;color:var(--mu);font-family:'Space Mono',monospace;line-height:1.6">Gửi link đến server bypass → server giả lập trình duyệt → trả về link thật trong vài giây.</div></div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:13px;display:flex;gap:11px;margin-bottom:18px">
+          <span style="font-size:1.1rem;flex-shrink:0">✅</span>
+          <div><div style="font-weight:700;font-size:.82rem;margin-bottom:3px">Kết quả</div><div style="font-size:.72rem;color:var(--mu);font-family:'Space Mono',monospace;line-height:1.6">Nhận link gốc — không quảng cáo, không chờ đợi.</div></div>
+        </div>
+        <button class="btn-bp" style="width:100%;border-radius:10px" onclick="goSlide(1)">Tiếp theo →</button>
+      </div>
+      <!-- slide 1 -->
+      <div id="ss1" style="display:none">
+        <div style="font-size:2rem;margin-bottom:10px">🚀</div>
+        <div style="font-size:1.15rem;font-weight:800;margin-bottom:6px;letter-spacing:-.5px">Cách sử dụng</div>
+        <div style="font-size:.75rem;color:var(--mu);font-family:'Space Mono',monospace;margin-bottom:16px">3 bước đơn giản</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+          <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:12px 13px;display:flex;gap:11px;align-items:center">
+            <div style="width:26px;height:26px;border-radius:7px;background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.2);color:var(--ac);font-family:'Space Mono',monospace;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+            <div style="font-size:.82rem"><b>Dán link rút gọn</b> vào ô input</div>
+          </div>
+          <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:12px 13px;display:flex;gap:11px;align-items:center">
+            <div style="width:26px;height:26px;border-radius:7px;background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.2);color:var(--ac);font-family:'Space Mono',monospace;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+            <div style="font-size:.82rem">Nhấn <b style="color:var(--ac)">⚡ Bypass</b></div>
+          </div>
+          <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:12px 13px;display:flex;gap:11px;align-items:center">
+            <div style="width:26px;height:26px;border-radius:7px;background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.2);color:var(--ac);font-family:'Space Mono',monospace;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+            <div style="font-size:.82rem"><b>Copy hoặc mở link thật</b></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button onclick="goSlide(0)" style="flex:1;padding:12px;border-radius:10px;border:1px solid var(--bd);background:none;color:var(--mu);font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;min-height:46px">← Quay lại</button>
+          <button class="btn-bp" style="flex:2;border-radius:10px" onclick="goSlide(2)">Tiếp theo →</button>
+        </div>
+      </div>
+      <!-- slide 2 -->
+      <div id="ss2" style="display:none">
+        <div style="font-size:2rem;margin-bottom:10px">★</div>
+        <div style="font-size:1.15rem;font-weight:800;margin-bottom:4px;letter-spacing:-.5px;color:var(--go)">Nâng cấp VIP</div>
+        <div style="font-size:.75rem;color:var(--mu);font-family:'Space Mono',monospace;margin-bottom:14px">bypass không giới hạn · mở khoá toàn bộ</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:14px">
+          <div style="background:var(--bg);border:1px solid var(--bd);border-radius:9px;padding:10px;text-align:center"><div style="font-size:.68rem;font-family:'Space Mono',monospace;color:var(--mu)">1 tuần</div><div style="font-size:1rem;font-weight:800;color:var(--go)">20.000đ</div></div>
+          <div style="background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.3);border-radius:9px;padding:10px;text-align:center;position:relative">
+            <div style="position:absolute;top:-7px;left:50%;transform:translateX(-50%);background:var(--go);color:#000;font-size:.56rem;font-weight:700;padding:2px 7px;border-radius:4px;font-family:'Space Mono',monospace">HOT</div>
+            <div style="font-size:.68rem;font-family:'Space Mono',monospace;color:var(--mu)">1 tháng</div><div style="font-size:1rem;font-weight:800;color:var(--go)">50.000đ</div>
+          </div>
+          <div style="background:var(--bg);border:1px solid var(--bd);border-radius:9px;padding:10px;text-align:center"><div style="font-size:.68rem;font-family:'Space Mono',monospace;color:var(--mu)">1 năm</div><div style="font-size:1rem;font-weight:800;color:var(--go)">500.000đ</div></div>
+          <div style="background:var(--bg);border:1px solid rgba(255,215,0,.2);border-radius:9px;padding:10px;text-align:center"><div style="font-size:.68rem;font-family:'Space Mono',monospace;color:var(--mu)">Vĩnh viễn</div><div style="font-size:1rem;font-weight:800;color:var(--go)">2.000.000đ</div></div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--bd);border-radius:9px;padding:11px 12px;margin-bottom:14px;font-family:'Space Mono',monospace;font-size:.72rem;color:var(--mu);line-height:1.8">
+          💳 Nạp thẻ cào <b style="color:var(--go)">Viettel / Vina / Mobi</b><br>→ Nhận key ngay sau khi nạp thành công<br><span style="color:var(--ac2)">⚠️ Nhập sai mệnh giá sẽ mất tiền, không hoàn!</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button class="btn-go" style="width:100%;justify-content:center" onclick="closeSplash();openModal()">💳 Mua VIP — Nạp thẻ ngay</button>
+          <button onclick="closeSplash();openModal();setTimeout(()=>switchMTab('key'),80)" style="width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,215,0,.3);background:rgba(255,215,0,.06);color:var(--go);font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;min-height:46px">🔑 Đã có key — Kích hoạt</button>
+          <div style="display:flex;gap:8px">
+            <button onclick="goSlide(1)" style="flex:1;padding:11px;border-radius:10px;border:1px solid var(--bd);background:none;color:var(--mu);font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;min-height:44px">← Quay lại</button>
+            <button onclick="closeSplash()" style="flex:2;padding:11px;border-radius:10px;border:1px solid var(--bd);background:none;color:var(--tx);font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;min-height:44px">Dùng Free →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VIP MODAL -->
+<div class="overlay" id="vipModal">
+  <div class="modal">
+    <div class="mhandle"></div>
+    <button class="mcls" onclick="closeModal()">✕</button>
+    <div class="mttl">★ BypassX VIP</div>
+    <div class="msub">nạp thẻ cào · nhận key ngay · bypass không giới hạn</div>
+    <div class="mtabs">
+      <button class="mtab active" data-mt="card" onclick="switchMTab('card')">💳 Thẻ cào</button>
+      <button class="mtab" data-mt="key" onclick="switchMTab('key')">🔑 Nhập key</button>
+    </div>
+    <!-- thẻ cào -->
+    <div id="mpCard">
+      <div class="clbl">Nhà mạng</div>
+      <div class="netrow">
+        <button class="nbt active" data-net="VIETTEL" onclick="pickNet(this)">Viettel</button>
+        <button class="nbt" data-net="VINAPHONE" onclick="pickNet(this)">Vinaphone</button>
+        <button class="nbt" data-net="MOBIFONE" onclick="pickNet(this)">Mobifone</button>
+      </div>
+      <div class="clbl">Mệnh giá thẻ</div>
+      <div class="amtrow">
+        <button class="abt active" data-amt="20000" onclick="pickAmt(this)">20.000đ</button>
+        <button class="abt" data-amt="50000" onclick="pickAmt(this)">50.000đ</button>
+        <button class="abt" data-amt="100000" onclick="pickAmt(this)">100.000đ</button>
+        <button class="abt" data-amt="200000" onclick="pickAmt(this)">200.000đ</button>
+        <button class="abt" data-amt="500000" onclick="pickAmt(this)">500.000đ</button>
+        <button class="abt" data-amt="1000000" onclick="pickAmt(this)">1.000.000đ</button>
+      </div>
+      <div class="warn">⚠️ <b>Chọn đúng mệnh giá!</b> Nhập sai sẽ <b>mất tiền, không hoàn lại</b>.</div>
+      <div class="cinputs">
+        <div><div class="clbl">Mã thẻ</div><input class="cinput" id="cCode" placeholder="Nhập mã thẻ..." inputmode="numeric"/></div>
+        <div><div class="clbl">Serial</div><input class="cinput" id="cSerial" placeholder="Nhập serial..." inputmode="numeric"/></div>
+      </div>
+      <div class="pkgbox">
+        <div class="clbl">Gói muốn mua</div>
+        <div class="pkgbtns">
+          <button class="pbt active" data-pkg="7" data-price="20000" onclick="pickPkg(this)">1 tuần · 20k</button>
+          <button class="pbt" data-pkg="30" data-price="50000" onclick="pickPkg(this)">1 tháng · 50k ⭐</button>
+          <button class="pbt" data-pkg="365" data-price="500000" onclick="pickPkg(this)">1 năm · 500k</button>
+          <button class="pbt" data-pkg="36500" data-price="2000000" onclick="pickPkg(this)">Vĩnh viễn · 2tr</button>
+        </div>
+        <div class="pkgnote" id="pkgNote">💡 Nạp thẻ ≥ <b>20.000đ</b> để kích hoạt gói 1 tuần</div>
+      </div>
+      <button class="btn-sub" id="btnSub" onclick="submitCard()">
+        <span id="subTxt">💳 Nạp thẻ &amp; Nhận key VIP</span>
+      </button>
+      <div class="cst" id="cSt"></div>
+    </div>
+    <!-- nhập key -->
+    <div id="mpKey" style="display:none">
+      <div class="clbl">Mã kích hoạt</div>
+      <input class="kinput" id="keyInput" placeholder="BYPASSX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false"/>
+      <button class="btn-act" id="btnAct" onclick="activateKey()">Kích hoạt VIP</button>
+      <div style="margin-top:10px;font-size:.7rem;font-family:'Space Mono',monospace;color:var(--mu);line-height:1.8">
+        Nạp thẻ cào → key tự động gửi ngay sau khi nạp thành công.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IN-APP BROWSER -->
+<div class="overlay" id="browserModal" style="align-items:stretch;padding:0">
+  <div style="width:100%;height:100%;display:flex;flex-direction:column;background:var(--bg)">
+    <!-- toolbar -->
+    <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--sf);border-bottom:1px solid var(--bd);flex-shrink:0">
+      <button onclick="closeBrowser()" style="background:none;border:none;color:var(--mu);font-size:1.3rem;cursor:pointer;padding:4px 8px;-webkit-appearance:none;touch-action:manipulation;min-width:36px;min-height:36px">✕</button>
+      <div id="browserUrl" style="flex:1;background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:7px 11px;font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
+      <button id="browserCopyBtn" onclick="copyBrowserUrl()" style="background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.2);color:var(--ac);font-family:'Space Mono',monospace;font-size:.68rem;padding:6px 10px;border-radius:7px;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;white-space:nowrap;min-height:34px">copy</button>
+      <a id="browserOpenBtn" href="#" target="_blank" rel="noopener" style="background:var(--ac);color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;padding:7px 10px;border-radius:7px;text-decoration:none;white-space:nowrap;min-height:34px;display:flex;align-items:center">↗ Mở</a>
+    </div>
+    <!-- loading bar -->
+    <div id="browserLoading" style="height:2px;background:linear-gradient(90deg,var(--ac),transparent);animation:loadbar 1.5s ease infinite;display:none"></div>
+    <!-- iframe -->
+    <iframe id="browserFrame"
+      style="flex:1;width:100%;border:none;background:#fff"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"
+      src="about:blank">
+    </iframe>
+    <!-- fallback (hiện khi iframe bị chặn) -->
+    <div id="browserFallback" style="display:none;flex:1;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center">
+      <div style="font-size:2.5rem;margin-bottom:14px">🚫</div>
+      <div style="font-weight:700;font-size:1rem;margin-bottom:8px">Trang này chặn iframe</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.76rem;color:var(--mu);margin-bottom:20px;line-height:1.7">
+        Một số trang không cho phép nhúng trong app.<br>Dùng nút bên dưới để mở trực tiếp.
+      </div>
+      <a id="fallbackLink" href="#" target="_blank" rel="noopener" style="background:var(--ac);color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;padding:13px 28px;border-radius:10px;text-decoration:none">↗ Mở trong trình duyệt</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<style>
+@keyframes loadbar{0%{width:0;opacity:1}70%{width:80%;opacity:1}100%{width:100%;opacity:0}}
+</style>
+
+<script>
+const FREE_DAILY=5;
+const DEMO_KEYS=['BYPASSX-VIP1-2024-DEMO','BYPASSX-TEST-ABCD-1234'];
+// PARTNER_ID và PARTNER_KEY giờ nằm trong backend/.env — an toàn hơn
+
+let isVIP=localStorage.getItem('bx_vip')==='1';
+let usageToday=parseInt(localStorage.getItem('bx_u_'+day())||'0');
+let hist=JSON.parse(localStorage.getItem('bx_hist')||'[]');
+let selNet='VIETTEL',selAmt=20000,selPkg=7;
+let busy={bp:false,sub:false,act:false};
+
+function day(){return new Date().toISOString().slice(0,10)}
+
+// init
+refreshVIP();renderHist();renderBatch();
+if(localStorage.getItem('bx_seen')!=='1'){
+  document.getElementById('splashModal').classList.add('open');
+}
+document.getElementById('linkInput').addEventListener('keydown',e=>{if(e.key==='Enter')doBypass()});
+// swipe splash
+(()=>{let tx=0,ty=0;const el=document.getElementById('sSlides');
+  el.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+  el.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>45){dx<0?goSlide(Math.min(splashP+1,2)):goSlide(Math.max(splashP-1,0))}
+  },{passive:true})})();
+
+// VIP
+function refreshVIP(){
+  const b=document.getElementById('vipBadge'),i=document.getElementById('vipInfo');
+  if(isVIP){b.textContent='★ VIP';b.className='badge bv';i.innerHTML='Tài khoản VIP · <b>Bypass không giới hạn</b>';document.getElementById('batchTab').textContent='⧉ Batch Bypass'}
+  else{b.textContent='FREE';b.className='badge bf';const r=Math.max(0,FREE_DAILY-usageToday);i.innerHTML=`Bypass thông thường · <b>${r}</b> lượt/ngày còn lại`}
+}
+function activateVIPLocal(days){isVIP=true;localStorage.setItem('bx_vip','1');localStorage.setItem('bx_vip_exp',Date.now()+days*86400000);refreshVIP()}
+
+// tabs
+function switchTab(t){
+  if(t==='batch'&&!isVIP){toast('⭐ Cần VIP để dùng Batch!','e');openModal();return}
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));
+  document.getElementById('pSingle').style.display=t==='single'?'':'none';
+  document.getElementById('pBatch').style.display=t==='batch'?'':'none';
+  document.getElementById('pGuide').style.display=t==='guide'?'':'none';
+}
+
+// batch panel
+function renderBatch(){
+  const el=document.getElementById('batchContent');
+  if(!isVIP){el.innerHTML=`<div class="vlock"><div class="vlock-icon">🔒</div><div class="vlock-title">Tính năng VIP</div><div class="vlock-desc">Bypass 20 link cùng lúc.<br>Nâng cấp VIP để mở khoá.</div><button class="btn-unlock" onclick="openModal()">★ Nâng cấp VIP</button></div>`;return}
+  el.innerHTML=`
+    <div class="vbar" style="margin-bottom:14px"><span class="badge bv">★ VIP</span><span class="vinfo">Tối đa <b>20 link</b>/lần</span></div>
+    <textarea class="barea" id="bArea" placeholder="Dán từng link một dòng:&#10;https://link4m.co/xxxxx&#10;https://funking.io/xxxxx"></textarea>
+    <div style="display:flex;gap:9px;align-items:center;margin-bottom:14px">
+      <button class="btn-go" id="btnBatch" onclick="doBatch()">⚡ Bypass tất cả</button>
+      <span style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mu)" id="bCnt">0 link</span>
+    </div>
+    <div style="background:var(--bg);border:1px solid var(--bd);border-radius:11px;padding:14px">
+      <div class="rlbl rl-success" style="margin-bottom:10px">// Kết quả</div>
+      <div id="bList"><div class="empty">Chưa có kết quả nào.</div></div>
+    </div>`;
+  document.getElementById('bArea').addEventListener('input',()=>{
+    const n=document.getElementById('bArea').value.split('\n').filter(l=>l.trim().startsWith('http')).length;
+    document.getElementById('bCnt').textContent=n+' link'});
+}
+
+// site tag click
+function fillLink(url){
+  const inp=document.getElementById('linkInput');
+  inp.value=url;inp.focus();
+  // highlight tag
+  document.querySelectorAll('.stag.f').forEach(t=>t.style.borderColor='');
+  event.target.style.borderColor='var(--ac)';
+  toast('✓ Đã chọn — dán link thật vào rồi nhấn Bypass!','s');
+}
+function fillLinkVIP(url){
+  if(!isVIP){toast('⭐ Cần VIP để bypass loại link này!','e');openModal();return}
+  const inp=document.getElementById('linkInput');
+  inp.value=url;inp.focus();
+  document.querySelectorAll('.stag.p').forEach(t=>t.style.borderColor='');
+  event.target.style.borderColor='var(--go)';
+  toast('✓ Đã chọn — dán link thật vào rồi nhấn Bypass!','s');
+}
+
+// bypass core
+// ── BACKEND CONFIG ──
+// Đổi thành URL Render khi deploy, để localhost khi test local
+const BACKEND = 'http://localhost:3000';
+
+async function bypassURL(url){
+  // 1. Thử qua backend trước (không bị CORS, hỗ trợ nhiều link hơn)
+  try{
+    const r=await fetch(`${BACKEND}/api/bypass`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({url}),
+      signal:AbortSignal.timeout(12000)
+    });
+    if(r.ok){
+      const d=await r.json();
+      if(d.ok&&d.result) return{ok:true,result:d.result};
+    }
+  }catch{}
+
+  // 2. Fallback: gọi thẳng API bypass công cộng
+  const enc=encodeURIComponent(url);
+  const apis=[
+    `https://bypass.vip/bypass?url=${enc}`,
+    `https://api.bypass.vip/?url=${enc}`,
+    `https://bypass.city/api/bypass?url=${enc}`,
+    `https://bypass.bot/api?url=${enc}`,
+    `https://bypassed.cc/api/bypass?url=${enc}`,
+  ];
+  for(const a of apis){
+    try{
+      const r=await fetch(a,{signal:AbortSignal.timeout(10000)});
+      if(!r.ok)continue;
+      const d=await r.json();
+      const res=d.destination||d.result||d.url||d.bypassed||d.link;
+      if(res&&res.startsWith('http'))return{ok:true,result:res};
+    }catch{}
+  }
+  return{ok:false,error:'Không bypass được link này. Kiểm tra backend đã chạy chưa (node server.js) hoặc link không được hỗ trợ.'};
+}
+
+// single bypass
+async function doBypass(){
+  if(busy.bp)return;
+  const inp=document.getElementById('linkInput');
+  const url=inp.value.trim();
+  if(!url){inp.style.animation='shake .3s';setTimeout(()=>inp.style.animation='',400);toast('Nhập link vào đã!','e');return}
+  if(!url.startsWith('http')){inp.style.animation='shake .3s';setTimeout(()=>inp.style.animation='',400);toast('Link phải bắt đầu bằng http!','e');return}
+  if(!isVIP&&usageToday>=FREE_DAILY){toast('⭐ Hết lượt! Nâng cấp VIP để không giới hạn','e');openModal();return}
+  busy.bp=true;
+  const btn=document.getElementById('btnBypass'),txt=document.getElementById('bpTxt');
+  btn.disabled=true;txt.innerHTML='<span class="bspin"></span>';
+  showResult('loading','');
+  const d=await bypassURL(url);
+  btn.disabled=false;txt.textContent='⚡ Bypass';busy.bp=false;
+  if(d.ok){
+    showResult('success',d.result);
+    if(!isVIP){usageToday++;localStorage.setItem('bx_u_'+day(),usageToday)}
+    addHist(url,d.result);refreshVIP();toast('✓ Bypass thành công!','s');
+  }else{showResult('error',d.error);toast('✗ Thất bại','e')}
+}
+function showResult(t,v){
+  const box=document.getElementById('rbox'),lbl=document.getElementById('rlbl'),cnt=document.getElementById('rcnt');
+  box.classList.add('show');lbl.className='rlbl rl-'+t;
+  if(t==='loading'){lbl.innerHTML='<span class="spin"></span> Đang bypass...';cnt.innerHTML=''}
+  else if(t==='success'){
+    lbl.textContent='✓ Bypass thành công';
+    cnt.innerHTML=`
+      <div class="rurl">${esc(v)}</div>
+      <div class="brow">
+        <button class="bsm bsm-open" onclick="openInApp('${escj(v)}')">▶ Mở trong app</button>
+        <a class="bsm bsm-open" href="${esc(v)}" target="_blank" rel="noopener" style="background:var(--sf2);color:var(--tx);border:1px solid var(--bd)">↗ Mở tab mới</a>
+        <button class="bsm bsm-cp" onclick="cp('${escj(v)}')">⧉ Copy</button>
+      </div>`;
+  }else{lbl.textContent='✗ Thất bại';cnt.innerHTML=`<div style="color:var(--ac2);font-family:'Space Mono',monospace;font-size:.78rem;line-height:1.6">${esc(v)}</div>`}
+}
+
+// batch
+async function doBatch(){
+  const lines=document.getElementById('bArea').value.split('\n').map(l=>l.trim()).filter(l=>l.startsWith('http')).slice(0,20);
+  if(!lines.length){toast('Chưa nhập link nào!','e');return}
+  const btn=document.getElementById('btnBatch');
+  btn.disabled=true;btn.innerHTML='<span class="bspin" style="border-top-color:#000;border-color:rgba(0,0,0,.2);border-top-color:#000"></span> Đang...';
+  const list=document.getElementById('bList');
+  list.innerHTML=lines.map((_,i)=>`<div class="bi" id="bi${i}"><div class="bi-src">${esc(lines[i])}</div><div class="bi-dst"><span class="spin"></span> Đang xử lý...</div></div>`).join('');
+  let ok=0;
+  for(let i=0;i<lines.length;i++){
+    const d=await bypassURL(lines[i]);
+    document.getElementById('bi'+i).querySelector('.bi-dst').innerHTML=d.ok
+      ?`<span class="bok">→ ${esc(d.result)}</span> <button class="hbtn" style="margin-left:6px" onclick="cp('${escj(d.result)}')">copy</button>`
+      :`<span class="berr">✗ ${esc(d.error)}</span>`;
+    if(d.ok){addHist(lines[i],d.result);ok++}
+  }
+  btn.disabled=false;btn.textContent='⚡ Bypass tất cả';
+  toast(`✓ Xong ${ok}/${lines.length} link!`,ok>0?'s':'e');
+}
+
+// modal
+function openModal(){document.getElementById('vipModal').classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('vipModal').classList.remove('open');document.body.style.overflow=''}
+document.getElementById('vipModal').addEventListener('click',e=>{if(e.target===document.getElementById('vipModal'))closeModal()});
+function switchMTab(t){
+  document.querySelectorAll('.mtab').forEach(x=>{const on=x.dataset.mt===t;x.classList.toggle('active',on);x.style.background=on?'var(--sf)':'none';x.style.color=on?'var(--tx)':'var(--mu)';x.style.border=on?'1px solid var(--bd)':'none'});
+  document.getElementById('mpCard').style.display=t==='card'?'':'none';
+  document.getElementById('mpKey').style.display=t==='key'?'':'none';
+}
+
+// card
+function pickNet(el){document.querySelectorAll('.nbt').forEach(b=>b.classList.remove('active'));el.classList.add('active');selNet=el.dataset.net}
+function pickAmt(el){document.querySelectorAll('.abt').forEach(b=>b.classList.remove('active'));el.classList.add('active');selAmt=parseInt(el.dataset.amt)}
+function pickPkg(el){
+  document.querySelectorAll('.pbt').forEach(b=>b.classList.remove('active'));el.classList.add('active');
+  selPkg=parseInt(el.dataset.pkg);
+  document.getElementById('pkgNote').innerHTML=`💡 Nạp thẻ ≥ <b>${parseInt(el.dataset.price).toLocaleString('vi-VN')}đ</b> để kích hoạt gói này`;
+}
+function setCst(t,html){
+  const el=document.getElementById('cSt');el.style.display='block';
+  const c={loading:'#ffaa00',success:'var(--ac)',error:'var(--ac2)'};
+  const bg={loading:'rgba(255,170,0,.06)',success:'rgba(0,255,136,.06)',error:'rgba(255,68,102,.06)'};
+  el.style.border=`1px solid ${c[t]}44`;el.style.background=bg[t];el.style.color=c[t];el.innerHTML=html;
+}
+async function submitCard(){
+  if(busy.sub)return;
+  const code=document.getElementById('cCode').value.trim(),serial=document.getElementById('cSerial').value.trim();
+  let err=false;
+  if(!code||code.replace(/\D/g,'').length<9){document.getElementById('cCode').classList.add('err');err=true}else document.getElementById('cCode').classList.remove('err');
+  if(!serial||serial.replace(/\D/g,'').length<9){document.getElementById('cSerial').classList.add('err');err=true}else document.getElementById('cSerial').classList.remove('err');
+  if(err){toast('Kiểm tra lại mã thẻ và serial!','e');return}
+  busy.sub=true;
+  const btn=document.getElementById('btnSub'),txt=document.getElementById('subTxt');
+  btn.disabled=true;txt.innerHTML='<span class="bspin" style="border-top-color:#000;border-color:rgba(0,0,0,.2);border-top-color:#000"></span> Đang nạp...';
+  setCst('loading','<span class="spin"></span> Đang xử lý thẻ...');
+  const reqId='bx_'+Date.now()+'_'+Math.random().toString(36).slice(2,7);
+  try{
+    // Gọi qua backend — key được giữ bí mật trong server
+    const r=await fetch(`${BACKEND}/api/charge`,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({telco:selNet,code,serial,amount:selAmt,pkg:String(selPkg)}),
+      signal:AbortSignal.timeout(18000)});
+    const d=await r.json();
+    if(d.ok&&d.key){
+      activateVIPLocal(d.days);renderBatch();
+      setCst('success',`<div style="margin-bottom:8px">✓ Nạp <b>${(d.amount||selAmt).toLocaleString('vi-VN')}đ</b> thành công! VIP <b>${d.days>=36500?'Vĩnh viễn':d.days+' ngày'}</b> kích hoạt.</div><div style="font-size:.68rem;color:var(--mu);margin-bottom:8px">Lưu key để dùng trên thiết bị khác:</div><div class="key-res">${d.key}</div><button class="btn-cpkey" onclick="cp('${escj(d.key)}')">⧉ Copy mã VIP</button>`);
+      toast('★ VIP kích hoạt thành công!','s');
+    }else if(d.pending){
+      setCst('loading','⏳ Thẻ đang chờ duyệt (~5 phút)...');
+      setTimeout(()=>checkPending(d.reqId),30000);
+    }else{setCst('error',`✗ ${d.error||'Thẻ không hợp lệ hoặc đã dùng.'}`);toast('✗ Nạp thất bại','e')}
+  }catch{setCst('error','✗ Không kết nối backend. Chạy node server.js trước!');toast('✗ Backend chưa chạy','e')}
+  btn.disabled=false;txt.innerHTML='💳 Nạp thẻ &amp; Nhận key VIP';busy.sub=false;
+}
+async function checkPending(reqId){
+  try{
+    const r=await fetch(`${BACKEND}/api/charge/check?reqId=${reqId}&pkg=${selPkg}`);
+    const d=await r.json();
+    if(d.ok&&d.key){activateVIPLocal(d.days);renderBatch();setCst('success',`<div style="margin-bottom:8px">✓ Duyệt thành công! VIP <b>${d.days} ngày</b> kích hoạt.</div><div class="key-res">${d.key}</div><button class="btn-cpkey" onclick="cp('${escj(d.key)}')">⧉ Copy mã VIP</button>`);toast('★ VIP kích hoạt!','s')}
+    else if(d.pending)setTimeout(()=>checkPending(reqId),30000);
+  }catch{}
+}
+function makeKey(){const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';const s=()=>Array.from({length:4},()=>c[Math.floor(Math.random()*c.length)]).join('');return`BYPASSX-${s()}-${s()}-${s()}`}
+
+// key activate
+async function activateKey(){
+  if(busy.act)return;
+  const key=document.getElementById('keyInput').value.trim().toUpperCase();
+  const ki=document.getElementById('keyInput');
+  if(!key.startsWith('BYPASSX-')){ki.classList.add('err');toast('Key không đúng định dạng!','e');setTimeout(()=>ki.classList.remove('err'),1500);return}
+  busy.act=true;
+  const btn=document.getElementById('btnAct');btn.disabled=true;btn.textContent='Đang kiểm tra...';
+  try{
+    const r=await fetch(`${BACKEND}/api/key/validate`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key}),signal:AbortSignal.timeout(8000)});
+    const d=await r.json();
+    if(d.ok){activateVIPLocal(d.days);renderBatch();closeModal();toast(`★ VIP ${d.days>=36500?'Vĩnh viễn':d.days+' ngày'} kích hoạt!`,'s')}
+    else{ki.classList.add('err');toast(d.error||'Key không hợp lệ!','e');setTimeout(()=>ki.classList.remove('err'),1500)}
+  }catch{
+    // fallback demo keys khi backend chưa chạy
+    if(DEMO_KEYS.includes(key)){activateVIPLocal(7);renderBatch();closeModal();toast('★ VIP 7 ngày kích hoạt!','s')}
+    else{toast('Key không hợp lệ hoặc backend chưa chạy!','e');ki.classList.add('err');setTimeout(()=>ki.classList.remove('err'),1500)}
+  }
+  btn.disabled=false;btn.textContent='Kích hoạt VIP';busy.act=false;
+}
+
+// splash
+let splashP=0;
+function goSlide(n){
+  document.getElementById('ss'+splashP).style.display='none';
+  document.getElementById('sd'+splashP).classList.remove('active');
+  splashP=n;
+  document.getElementById('ss'+splashP).style.display='';
+  document.getElementById('sd'+splashP).classList.add('active');
+  document.getElementById('sSlides').scrollTop=0;
+}
+function closeSplash(){document.getElementById('splashModal').classList.remove('open');localStorage.setItem('bx_seen','1')}
+
+// history
+function addHist(src,dest){hist.unshift({src,dest});if(hist.length>30)hist=hist.slice(0,30);localStorage.setItem('bx_hist',JSON.stringify(hist));renderHist()}
+function clearHist(){hist=[];localStorage.removeItem('bx_hist');renderHist();toast('Đã xóa lịch sử')}
+function renderHist(){
+  const el=document.getElementById('histList');
+  if(!hist.length){el.innerHTML='<div class="empty">Chưa có lịch sử bypass nào.</div>';return}
+  el.innerHTML=hist.map((h,i)=>`<div class="hi"><div class="hdot"></div><div class="htxt"><div class="hsrc">${esc(h.src)}</div><div class="hdst">→ ${esc(h.dest)}</div></div><button class="hbtn" onclick="reuseHist(${i})">Dùng lại</button></div>`).join('');
+}
+function reuseHist(i){document.getElementById('linkInput').value=hist[i].src;switchTab('single');showResult('success',hist[i].dest);window.scrollTo({top:0,behavior:'smooth'})}
+
+// in-app browser
+let currentBrowserUrl='';
+function openInApp(url){
+  currentBrowserUrl=url;
+  const modal=document.getElementById('browserModal');
+  const frame=document.getElementById('browserFrame');
+  const loading=document.getElementById('browserLoading');
+  const fallback=document.getElementById('browserFallback');
+  const urlBar=document.getElementById('browserUrl');
+  const openBtn=document.getElementById('browserOpenBtn');
+  const fallbackLink=document.getElementById('fallbackLink');
+
+  // setup
+  urlBar.textContent=url;
+  openBtn.href=url;
+  fallbackLink.href=url;
+  fallback.style.display='none';
+  frame.style.display='block';
+  loading.style.display='block';
+
+  // load
+  frame.src=url;
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+
+  // detect nếu iframe bị chặn (X-Frame-Options)
+  const timer=setTimeout(()=>{
+    try{
+      // nếu đọc được contentDocument thì ok
+      const doc=frame.contentDocument||frame.contentWindow.document;
+      if(!doc||doc.URL==='about:blank'||doc.body.innerHTML===''){
+        showFallback();
+      }
+    }catch(e){
+      // cross-origin error = trang đã load nhưng chặn đọc = ok
+    }
+    loading.style.display='none';
+  },3000);
+
+  frame.onload=()=>{
+    clearTimeout(timer);
+    loading.style.display='none';
+    try{
+      const doc=frame.contentDocument||frame.contentWindow.document;
+      if(doc.body&&doc.body.innerHTML==='')showFallback();
+    }catch{}
+  };
+  frame.onerror=()=>{clearTimeout(timer);loading.style.display='none';showFallback()};
+}
+function showFallback(){
+  document.getElementById('browserFrame').style.display='none';
+  document.getElementById('browserFallback').style.display='flex';
+}
+function closeBrowser(){
+  const modal=document.getElementById('browserModal');
+  modal.classList.remove('open');
+  document.getElementById('browserFrame').src='about:blank';
+  document.getElementById('browserLoading').style.display='none';
+  document.getElementById('browserFallback').style.display='none';
+  document.getElementById('browserFrame').style.display='block';
+  document.body.style.overflow='';
+}
+function copyBrowserUrl(){cp(currentBrowserUrl)}
+
+// utils
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function escj(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
+function cp(u){navigator.clipboard.writeText(u).then(()=>toast('✓ Đã copy!','s')).catch(()=>toast('Copy thất bại','e'))}
+let toastT;
+function toast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(type?' '+type:'');t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2400)}
+</script>
+</body>
+</html>
