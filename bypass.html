@@ -51,10 +51,12 @@ h1 span{color:var(--ac)}
 /* sites */
 .slabel{font-size:.67rem;color:var(--mu);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:8px;text-transform:uppercase}
 .slist{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-.stag{font-family:'Space Mono',monospace;font-size:.67rem;padding:6px 11px;border-radius:6px;letter-spacing:.5px;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;transition:transform .1s,filter .15s;display:inline-block}
-.stag:active{transform:scale(.93);filter:brightness(1.4)}
+.stag{font-family:'Space Mono',monospace;font-size:.67rem;padding:6px 12px;border-radius:6px;letter-spacing:.5px;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;transition:transform .1s,filter .15s;display:inline-block;min-height:34px;line-height:1.6;vertical-align:middle}
+.stag:active{transform:scale(.93)}
 .stag.f{background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.14);color:var(--ac)}
+.stag.f.sel{background:rgba(0,255,136,.2);border-color:var(--ac);font-weight:700;box-shadow:0 0 8px rgba(0,255,136,.2)}
 .stag.p{background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.18);color:var(--go2)}
+.stag.p.sel{background:rgba(255,215,0,.2);border-color:var(--go);font-weight:700;box-shadow:0 0 8px rgba(255,215,0,.2)}
 /* result */
 .rbox{background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-top:4px;display:none}
 .rbox.show{display:block}
@@ -210,27 +212,27 @@ h1 span{color:var(--ac)}
         <span id="bpTxt">⚡ Bypass</span>
       </button>
     </div>
-    <div class="slabel">▸ Free hỗ trợ (bấm để thử):</div>
+    <div class="slabel">▸ Free hỗ trợ:</div>
     <div class="slist">
-      <span class="stag f" onclick="fillLink('https://link4m.co/abcxyz')">link4m</span>
-      <span class="stag f" onclick="fillLink('https://funking.io/abcxyz')">funking.io</span>
-      <span class="stag f" onclick="fillLink('https://toplink.io/abcxyz')">toplink.io</span>
-      <span class="stag f" onclick="fillLink('https://adf.ly/abcxyz')">adfly</span>
-      <span class="stag f" onclick="fillLink('https://bc.vc/abcxyz')">bc.vc</span>
-      <span class="stag f" onclick="fillLink('https://cutt.ly/abcxyz')">cutt.ly</span>
-      <span class="stag f" onclick="fillLink('https://shorte.st/abcxyz')">shorte.st</span>
-      <span class="stag f" onclick="fillLink('https://t.ly/abcxyz')">t.ly</span>
-      <span class="stag f" onclick="fillLink('https://linkfly.to/abcxyz')">linkfly</span>
-      <span class="stag f" onclick="fillLink('https://short.io/abcxyz')">short.io</span>
+      <button class="stag f" onclick="fillLink(this,'https://link4m.co/abcxyz')">link4m</button>
+      <button class="stag f" onclick="fillLink(this,'https://funking.io/abcxyz')">funking.io</button>
+      <button class="stag f" onclick="fillLink(this,'https://toplink.io/abcxyz')">toplink.io</button>
+      <button class="stag f" onclick="fillLink(this,'https://adf.ly/abcxyz')">adfly</button>
+      <button class="stag f" onclick="fillLink(this,'https://bc.vc/abcxyz')">bc.vc</button>
+      <button class="stag f" onclick="fillLink(this,'https://cutt.ly/abcxyz')">cutt.ly</button>
+      <button class="stag f" onclick="fillLink(this,'https://shorte.st/abcxyz')">shorte.st</button>
+      <button class="stag f" onclick="fillLink(this,'https://t.ly/abcxyz')">t.ly</button>
+      <button class="stag f" onclick="fillLink(this,'https://linkfly.to/abcxyz')">linkfly</button>
+      <button class="stag f" onclick="fillLink(this,'https://short.io/abcxyz')">short.io</button>
     </div>
     <div class="slabel">▸ VIP mới bypass được:</div>
     <div class="slist">
-      <span class="stag p" onclick="fillLinkVIP('https://linkvertise.com/abcxyz')">linkvertise</span>
-      <span class="stag p" onclick="fillLinkVIP('https://sub2unlock.com/abcxyz')">sub2unlock</span>
-      <span class="stag p" onclick="fillLinkVIP('https://loot.link/abcxyz')">loot.link</span>
-      <span class="stag p" onclick="fillLinkVIP('https://rekonise.com/abcxyz')">rekonise</span>
-      <span class="stag p" onclick="fillLinkVIP('https://socialwolvez.com/abcxyz')">socialwolvez</span>
-      <span class="stag p" onclick="fillLinkVIP('https://linkvip.net/abcxyz')">linkvip</span>
+      <button class="stag p" onclick="fillLinkVIP(this,'https://linkvertise.com/abcxyz')">linkvertise</button>
+      <button class="stag p" onclick="fillLinkVIP(this,'https://sub2unlock.com/abcxyz')">sub2unlock</button>
+      <button class="stag p" onclick="fillLinkVIP(this,'https://loot.link/abcxyz')">loot.link</button>
+      <button class="stag p" onclick="fillLinkVIP(this,'https://rekonise.com/abcxyz')">rekonise</button>
+      <button class="stag p" onclick="fillLinkVIP(this,'https://socialwolvez.com/abcxyz')">socialwolvez</button>
+      <button class="stag p" onclick="fillLinkVIP(this,'https://linkvip.net/abcxyz')">linkvip</button>
     </div>
     <div class="rbox" id="rbox">
       <div class="rlbl" id="rlbl"></div>
@@ -528,21 +530,19 @@ document.getElementById(‘bCnt’).textContent=n+’ link’});
 }
 
 // site tag click
-function fillLink(url){
-const inp=document.getElementById(‘linkInput’);
-inp.value=url;inp.focus();
-// highlight tag
-document.querySelectorAll(’.stag.f’).forEach(t=>t.style.borderColor=’’);
-event.target.style.borderColor=‘var(–ac)’;
-toast(‘✓ Đã chọn — dán link thật vào rồi nhấn Bypass!’,‘s’);
+let selTagEl=null;
+function fillLink(el,url){
+if(selTagEl===el){el.classList.remove(‘sel’);selTagEl=null;return}
+if(selTagEl)selTagEl.classList.remove(‘sel’);
+selTagEl=el;el.classList.add(‘sel’);
+toast(‘✓ Đã chọn ‘+el.textContent+’!’,‘s’);
 }
-function fillLinkVIP(url){
-if(!isVIP){toast(‘⭐ Cần VIP để bypass loại link này!’,‘e’);openModal();return}
-const inp=document.getElementById(‘linkInput’);
-inp.value=url;inp.focus();
-document.querySelectorAll(’.stag.p’).forEach(t=>t.style.borderColor=’’);
-event.target.style.borderColor=‘var(–go)’;
-toast(‘✓ Đã chọn — dán link thật vào rồi nhấn Bypass!’,‘s’);
+function fillLinkVIP(el,url){
+if(!isVIP){toast(‘⭐ Cần VIP để bypass loại này!’,‘e’);openModal();return}
+if(selTagEl===el){el.classList.remove(‘sel’);selTagEl=null;return}
+if(selTagEl)selTagEl.classList.remove(‘sel’);
+selTagEl=el;el.classList.add(‘sel’);
+toast(‘✓ Đã chọn ‘+el.textContent+’!’,‘s’);
 }
 
 // bypass core
