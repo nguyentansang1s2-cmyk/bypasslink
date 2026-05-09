@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -196,6 +197,7 @@ h1 span{color:var(--ac)}
   </div>
 
   <!-- SINGLE -->
+
   <div class="card" id="pSingle">
     <div class="card-line"></div>
     <div class="vbar">
@@ -212,6 +214,7 @@ h1 span{color:var(--ac)}
     <div class="slist">
       <span class="stag f" onclick="fillLink('https://link4m.co/abcxyz')">link4m</span>
       <span class="stag f" onclick="fillLink('https://funking.io/abcxyz')">funking.io</span>
+      <span class="stag f" onclick="fillLink('https://toplink.io/abcxyz')">toplink.io</span>
       <span class="stag f" onclick="fillLink('https://adf.ly/abcxyz')">adfly</span>
       <span class="stag f" onclick="fillLink('https://bc.vc/abcxyz')">bc.vc</span>
       <span class="stag f" onclick="fillLink('https://cutt.ly/abcxyz')">cutt.ly</span>
@@ -236,12 +239,14 @@ h1 span{color:var(--ac)}
   </div>
 
   <!-- BATCH -->
+
   <div class="card" id="pBatch" style="display:none">
     <div class="card-line card-line-gold"></div>
     <div id="batchContent"></div>
   </div>
 
   <!-- GUIDE -->
+
   <div class="card" id="pGuide" style="display:none">
     <div class="card-line"></div>
     <div class="gsec">
@@ -260,6 +265,7 @@ h1 span{color:var(--ac)}
   </div>
 
   <!-- HISTORY -->
+
   <div style="margin-bottom:16px">
     <div class="sec-hdr">
       <div class="sec-ttl">// Lịch sử bypass</div>
@@ -274,6 +280,7 @@ h1 span{color:var(--ac)}
 </div>
 
 <!-- SPLASH -->
+
 <div class="overlay" id="splashModal">
   <div class="modal" style="border-radius:20px 20px 0 0">
     <div class="mhandle"></div>
@@ -356,6 +363,7 @@ h1 span{color:var(--ac)}
 </div>
 
 <!-- VIP MODAL -->
+
 <div class="overlay" id="vipModal">
   <div class="modal">
     <div class="mhandle"></div>
@@ -416,6 +424,7 @@ h1 span{color:var(--ac)}
 </div>
 
 <!-- IN-APP BROWSER -->
+
 <div class="overlay" id="browserModal" style="align-items:stretch;padding:0">
   <div style="width:100%;height:100%;display:flex;flex-direction:column;background:var(--bg)">
     <!-- toolbar -->
@@ -501,310 +510,309 @@ function renderBatch(){
   el.innerHTML=`
     <div class="vbar" style="margin-bottom:14px"><span class="badge bv">★ VIP</span><span class="vinfo">Tối đa <b>20 link</b>/lần</span></div>
     <textarea class="barea" id="bArea" placeholder="Dán từng link một dòng:&#10;https://link4m.co/xxxxx&#10;https://funking.io/xxxxx"></textarea>
-    <div style="display:flex;gap:9px;align-items:center;margin-bottom:14px">
-      <button class="btn-go" id="btnBatch" onclick="doBatch()">⚡ Bypass tất cả</button>
-      <span style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mu)" id="bCnt">0 link</span>
-    </div>
-    <div style="background:var(--bg);border:1px solid var(--bd);border-radius:11px;padding:14px">
-      <div class="rlbl rl-success" style="margin-bottom:10px">// Kết quả</div>
-      <div id="bList"><div class="empty">Chưa có kết quả nào.</div></div>
-    </div>`;
-  document.getElementById('bArea').addEventListener('input',()=>{
-    const n=document.getElementById('bArea').value.split('\n').filter(l=>l.trim().startsWith('http')).length;
-    document.getElementById('bCnt').textContent=n+' link'});
+
+```
+<div style="display:flex;gap:9px;align-items:center;margin-bottom:14px">
+  <button class="btn-go" id="btnBatch" onclick="doBatch()">⚡ Bypass tất cả</button>
+  <span style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mu)" id="bCnt">0 link</span>
+</div>
+<div style="background:var(--bg);border:1px solid var(--bd);border-radius:11px;padding:14px">
+  <div class="rlbl rl-success" style="margin-bottom:10px">// Kết quả</div>
+  <div id="bList"><div class="empty">Chưa có kết quả nào.</div></div>
+</div>`;
+```
+
+document.getElementById(‘bArea’).addEventListener(‘input’,()=>{
+const n=document.getElementById(‘bArea’).value.split(’\n’).filter(l=>l.trim().startsWith(‘http’)).length;
+document.getElementById(‘bCnt’).textContent=n+’ link’});
 }
 
 // site tag click
 function fillLink(url){
-  const inp=document.getElementById('linkInput');
-  inp.value=url;inp.focus();
-  // highlight tag
-  document.querySelectorAll('.stag.f').forEach(t=>t.style.borderColor='');
-  event.target.style.borderColor='var(--ac)';
-  toast('✓ Đã chọn — dán link thật vào rồi nhấn Bypass!','s');
+const inp=document.getElementById(‘linkInput’);
+inp.value=url;inp.focus();
+// highlight tag
+document.querySelectorAll(’.stag.f’).forEach(t=>t.style.borderColor=’’);
+event.target.style.borderColor=‘var(–ac)’;
+toast(‘✓ Đã chọn — dán link thật vào rồi nhấn Bypass!’,‘s’);
 }
 function fillLinkVIP(url){
-  if(!isVIP){toast('⭐ Cần VIP để bypass loại link này!','e');openModal();return}
-  const inp=document.getElementById('linkInput');
-  inp.value=url;inp.focus();
-  document.querySelectorAll('.stag.p').forEach(t=>t.style.borderColor='');
-  event.target.style.borderColor='var(--go)';
-  toast('✓ Đã chọn — dán link thật vào rồi nhấn Bypass!','s');
+if(!isVIP){toast(‘⭐ Cần VIP để bypass loại link này!’,‘e’);openModal();return}
+const inp=document.getElementById(‘linkInput’);
+inp.value=url;inp.focus();
+document.querySelectorAll(’.stag.p’).forEach(t=>t.style.borderColor=’’);
+event.target.style.borderColor=‘var(–go)’;
+toast(‘✓ Đã chọn — dán link thật vào rồi nhấn Bypass!’,‘s’);
 }
 
 // bypass core
 // ── BACKEND CONFIG ──
 // Đổi thành URL Render khi deploy, để localhost khi test local
-const BACKEND = 'http://localhost:3000';
+const BACKEND = ‘https://bypasslink-5.onrender.com’;
 
 async function bypassURL(url){
-  // 1. Thử qua backend trước (không bị CORS, hỗ trợ nhiều link hơn)
-  try{
-    const r=await fetch(`${BACKEND}/api/bypass`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({url}),
-      signal:AbortSignal.timeout(12000)
-    });
-    if(r.ok){
-      const d=await r.json();
-      if(d.ok&&d.result) return{ok:true,result:d.result};
-    }
-  }catch{}
+// 1. Thử qua backend trước (không bị CORS, hỗ trợ nhiều link hơn)
+try{
+const r=await fetch(`${BACKEND}/api/bypass`,{
+method:‘POST’,
+headers:{‘Content-Type’:‘application/json’},
+body:JSON.stringify({url}),
+signal:AbortSignal.timeout(12000)
+});
+if(r.ok){
+const d=await r.json();
+if(d.ok&&d.result) return{ok:true,result:d.result};
+}
+}catch{}
 
-  // 2. Fallback: gọi thẳng API bypass công cộng
-  const enc=encodeURIComponent(url);
-  const apis=[
-    `https://bypass.vip/bypass?url=${enc}`,
-    `https://api.bypass.vip/?url=${enc}`,
-    `https://bypass.city/api/bypass?url=${enc}`,
-    `https://bypass.bot/api?url=${enc}`,
-    `https://bypassed.cc/api/bypass?url=${enc}`,
-  ];
-  for(const a of apis){
-    try{
-      const r=await fetch(a,{signal:AbortSignal.timeout(10000)});
-      if(!r.ok)continue;
-      const d=await r.json();
-      const res=d.destination||d.result||d.url||d.bypassed||d.link;
-      if(res&&res.startsWith('http'))return{ok:true,result:res};
-    }catch{}
-  }
-  return{ok:false,error:'Không bypass được link này. Kiểm tra backend đã chạy chưa (node server.js) hoặc link không được hỗ trợ.'};
+// 2. Fallback: gọi thẳng API bypass công cộng
+const enc=encodeURIComponent(url);
+const apis=[
+`https://bypass.vip/bypass?url=${enc}`,
+`https://api.bypass.vip/?url=${enc}`,
+`https://bypass.city/api/bypass?url=${enc}`,
+`https://bypass.bot/api?url=${enc}`,
+`https://bypassed.cc/api/bypass?url=${enc}`,
+];
+for(const a of apis){
+try{
+const r=await fetch(a,{signal:AbortSignal.timeout(10000)});
+if(!r.ok)continue;
+const d=await r.json();
+const res=d.destination||d.result||d.url||d.bypassed||d.link;
+if(res&&res.startsWith(‘http’))return{ok:true,result:res};
+}catch{}
+}
+return{ok:false,error:‘Không bypass được link này. Kiểm tra backend đã chạy chưa (node server.js) hoặc link không được hỗ trợ.’};
 }
 
 // single bypass
 async function doBypass(){
-  if(busy.bp)return;
-  const inp=document.getElementById('linkInput');
-  const url=inp.value.trim();
-  if(!url){inp.style.animation='shake .3s';setTimeout(()=>inp.style.animation='',400);toast('Nhập link vào đã!','e');return}
-  if(!url.startsWith('http')){inp.style.animation='shake .3s';setTimeout(()=>inp.style.animation='',400);toast('Link phải bắt đầu bằng http!','e');return}
-  if(!isVIP&&usageToday>=FREE_DAILY){toast('⭐ Hết lượt! Nâng cấp VIP để không giới hạn','e');openModal();return}
-  busy.bp=true;
-  const btn=document.getElementById('btnBypass'),txt=document.getElementById('bpTxt');
-  btn.disabled=true;txt.innerHTML='<span class="bspin"></span>';
-  showResult('loading','');
-  const d=await bypassURL(url);
-  btn.disabled=false;txt.textContent='⚡ Bypass';busy.bp=false;
-  if(d.ok){
-    showResult('success',d.result);
-    if(!isVIP){usageToday++;localStorage.setItem('bx_u_'+day(),usageToday)}
-    addHist(url,d.result);refreshVIP();toast('✓ Bypass thành công!','s');
-  }else{showResult('error',d.error);toast('✗ Thất bại','e')}
+if(busy.bp)return;
+const inp=document.getElementById(‘linkInput’);
+const url=inp.value.trim();
+if(!url){inp.style.animation=‘shake .3s’;setTimeout(()=>inp.style.animation=’’,400);toast(‘Nhập link vào đã!’,‘e’);return}
+if(!url.startsWith(‘http’)){inp.style.animation=‘shake .3s’;setTimeout(()=>inp.style.animation=’’,400);toast(‘Link phải bắt đầu bằng http!’,‘e’);return}
+if(!isVIP&&usageToday>=FREE_DAILY){toast(‘⭐ Hết lượt! Nâng cấp VIP để không giới hạn’,‘e’);openModal();return}
+busy.bp=true;
+const btn=document.getElementById(‘btnBypass’),txt=document.getElementById(‘bpTxt’);
+btn.disabled=true;txt.innerHTML=’<span class="bspin"></span>’;
+showResult(‘loading’,’’);
+const d=await bypassURL(url);
+btn.disabled=false;txt.textContent=‘⚡ Bypass’;busy.bp=false;
+if(d.ok){
+showResult(‘success’,d.result);
+if(!isVIP){usageToday++;localStorage.setItem(‘bx_u_’+day(),usageToday)}
+addHist(url,d.result);refreshVIP();toast(‘✓ Bypass thành công!’,‘s’);
+}else{showResult(‘error’,d.error);toast(‘✗ Thất bại’,‘e’)}
 }
 function showResult(t,v){
-  const box=document.getElementById('rbox'),lbl=document.getElementById('rlbl'),cnt=document.getElementById('rcnt');
-  box.classList.add('show');lbl.className='rlbl rl-'+t;
-  if(t==='loading'){lbl.innerHTML='<span class="spin"></span> Đang bypass...';cnt.innerHTML=''}
-  else if(t==='success'){
-    lbl.textContent='✓ Bypass thành công';
-    cnt.innerHTML=`
-      <div class="rurl">${esc(v)}</div>
-      <div class="brow">
-        <button class="bsm bsm-open" onclick="openInApp('${escj(v)}')">▶ Mở trong app</button>
-        <a class="bsm bsm-open" href="${esc(v)}" target="_blank" rel="noopener" style="background:var(--sf2);color:var(--tx);border:1px solid var(--bd)">↗ Mở tab mới</a>
-        <button class="bsm bsm-cp" onclick="cp('${escj(v)}')">⧉ Copy</button>
-      </div>`;
-  }else{lbl.textContent='✗ Thất bại';cnt.innerHTML=`<div style="color:var(--ac2);font-family:'Space Mono',monospace;font-size:.78rem;line-height:1.6">${esc(v)}</div>`}
+const box=document.getElementById(‘rbox’),lbl=document.getElementById(‘rlbl’),cnt=document.getElementById(‘rcnt’);
+box.classList.add(‘show’);lbl.className=‘rlbl rl-’+t;
+if(t===‘loading’){lbl.innerHTML=’<span class="spin"></span> Đang bypass…’;cnt.innerHTML=’’}
+else if(t===‘success’){
+lbl.textContent=‘✓ Bypass thành công’;
+cnt.innerHTML=` <div class="rurl">${esc(v)}</div> <div class="brow"> <button class="bsm bsm-open" onclick="openInApp('${escj(v)}')">▶ Mở trong app</button> <a class="bsm bsm-open" href="${esc(v)}" target="_blank" rel="noopener" style="background:var(--sf2);color:var(--tx);border:1px solid var(--bd)">↗ Mở tab mới</a> <button class="bsm bsm-cp" onclick="cp('${escj(v)}')">⧉ Copy</button> </div>`;
+}else{lbl.textContent=‘✗ Thất bại’;cnt.innerHTML=`<div style="color:var(--ac2);font-family:'Space Mono',monospace;font-size:.78rem;line-height:1.6">${esc(v)}</div>`}
 }
 
 // batch
 async function doBatch(){
-  const lines=document.getElementById('bArea').value.split('\n').map(l=>l.trim()).filter(l=>l.startsWith('http')).slice(0,20);
-  if(!lines.length){toast('Chưa nhập link nào!','e');return}
-  const btn=document.getElementById('btnBatch');
-  btn.disabled=true;btn.innerHTML='<span class="bspin" style="border-top-color:#000;border-color:rgba(0,0,0,.2);border-top-color:#000"></span> Đang...';
-  const list=document.getElementById('bList');
-  list.innerHTML=lines.map((_,i)=>`<div class="bi" id="bi${i}"><div class="bi-src">${esc(lines[i])}</div><div class="bi-dst"><span class="spin"></span> Đang xử lý...</div></div>`).join('');
-  let ok=0;
-  for(let i=0;i<lines.length;i++){
-    const d=await bypassURL(lines[i]);
-    document.getElementById('bi'+i).querySelector('.bi-dst').innerHTML=d.ok
-      ?`<span class="bok">→ ${esc(d.result)}</span> <button class="hbtn" style="margin-left:6px" onclick="cp('${escj(d.result)}')">copy</button>`
-      :`<span class="berr">✗ ${esc(d.error)}</span>`;
-    if(d.ok){addHist(lines[i],d.result);ok++}
-  }
-  btn.disabled=false;btn.textContent='⚡ Bypass tất cả';
-  toast(`✓ Xong ${ok}/${lines.length} link!`,ok>0?'s':'e');
+const lines=document.getElementById(‘bArea’).value.split(’\n’).map(l=>l.trim()).filter(l=>l.startsWith(‘http’)).slice(0,20);
+if(!lines.length){toast(‘Chưa nhập link nào!’,‘e’);return}
+const btn=document.getElementById(‘btnBatch’);
+btn.disabled=true;btn.innerHTML=’<span class="bspin" style="border-top-color:#000;border-color:rgba(0,0,0,.2);border-top-color:#000"></span> Đang…’;
+const list=document.getElementById(‘bList’);
+list.innerHTML=lines.map((_,i)=>`<div class="bi" id="bi${i}"><div class="bi-src">${esc(lines[i])}</div><div class="bi-dst"><span class="spin"></span> Đang xử lý...</div></div>`).join(’’);
+let ok=0;
+for(let i=0;i<lines.length;i++){
+const d=await bypassURL(lines[i]);
+document.getElementById(‘bi’+i).querySelector(’.bi-dst’).innerHTML=d.ok
+?`<span class="bok">→ ${esc(d.result)}</span> <button class="hbtn" style="margin-left:6px" onclick="cp('${escj(d.result)}')">copy</button>`
+:`<span class="berr">✗ ${esc(d.error)}</span>`;
+if(d.ok){addHist(lines[i],d.result);ok++}
+}
+btn.disabled=false;btn.textContent=‘⚡ Bypass tất cả’;
+toast(`✓ Xong ${ok}/${lines.length} link!`,ok>0?‘s’:‘e’);
 }
 
 // modal
-function openModal(){document.getElementById('vipModal').classList.add('open');document.body.style.overflow='hidden'}
-function closeModal(){document.getElementById('vipModal').classList.remove('open');document.body.style.overflow=''}
-document.getElementById('vipModal').addEventListener('click',e=>{if(e.target===document.getElementById('vipModal'))closeModal()});
+function openModal(){document.getElementById(‘vipModal’).classList.add(‘open’);document.body.style.overflow=‘hidden’}
+function closeModal(){document.getElementById(‘vipModal’).classList.remove(‘open’);document.body.style.overflow=’’}
+document.getElementById(‘vipModal’).addEventListener(‘click’,e=>{if(e.target===document.getElementById(‘vipModal’))closeModal()});
 function switchMTab(t){
-  document.querySelectorAll('.mtab').forEach(x=>{const on=x.dataset.mt===t;x.classList.toggle('active',on);x.style.background=on?'var(--sf)':'none';x.style.color=on?'var(--tx)':'var(--mu)';x.style.border=on?'1px solid var(--bd)':'none'});
-  document.getElementById('mpCard').style.display=t==='card'?'':'none';
-  document.getElementById('mpKey').style.display=t==='key'?'':'none';
+document.querySelectorAll(’.mtab’).forEach(x=>{const on=x.dataset.mt===t;x.classList.toggle(‘active’,on);x.style.background=on?‘var(–sf)’:‘none’;x.style.color=on?‘var(–tx)’:‘var(–mu)’;x.style.border=on?‘1px solid var(–bd)’:‘none’});
+document.getElementById(‘mpCard’).style.display=t===‘card’?’’:‘none’;
+document.getElementById(‘mpKey’).style.display=t===‘key’?’’:‘none’;
 }
 
 // card
-function pickNet(el){document.querySelectorAll('.nbt').forEach(b=>b.classList.remove('active'));el.classList.add('active');selNet=el.dataset.net}
-function pickAmt(el){document.querySelectorAll('.abt').forEach(b=>b.classList.remove('active'));el.classList.add('active');selAmt=parseInt(el.dataset.amt)}
+function pickNet(el){document.querySelectorAll(’.nbt’).forEach(b=>b.classList.remove(‘active’));el.classList.add(‘active’);selNet=el.dataset.net}
+function pickAmt(el){document.querySelectorAll(’.abt’).forEach(b=>b.classList.remove(‘active’));el.classList.add(‘active’);selAmt=parseInt(el.dataset.amt)}
 function pickPkg(el){
-  document.querySelectorAll('.pbt').forEach(b=>b.classList.remove('active'));el.classList.add('active');
-  selPkg=parseInt(el.dataset.pkg);
-  document.getElementById('pkgNote').innerHTML=`💡 Nạp thẻ ≥ <b>${parseInt(el.dataset.price).toLocaleString('vi-VN')}đ</b> để kích hoạt gói này`;
+document.querySelectorAll(’.pbt’).forEach(b=>b.classList.remove(‘active’));el.classList.add(‘active’);
+selPkg=parseInt(el.dataset.pkg);
+document.getElementById(‘pkgNote’).innerHTML=`💡 Nạp thẻ ≥ <b>${parseInt(el.dataset.price).toLocaleString('vi-VN')}đ</b> để kích hoạt gói này`;
 }
 function setCst(t,html){
-  const el=document.getElementById('cSt');el.style.display='block';
-  const c={loading:'#ffaa00',success:'var(--ac)',error:'var(--ac2)'};
-  const bg={loading:'rgba(255,170,0,.06)',success:'rgba(0,255,136,.06)',error:'rgba(255,68,102,.06)'};
-  el.style.border=`1px solid ${c[t]}44`;el.style.background=bg[t];el.style.color=c[t];el.innerHTML=html;
+const el=document.getElementById(‘cSt’);el.style.display=‘block’;
+const c={loading:’#ffaa00’,success:‘var(–ac)’,error:‘var(–ac2)’};
+const bg={loading:‘rgba(255,170,0,.06)’,success:‘rgba(0,255,136,.06)’,error:‘rgba(255,68,102,.06)’};
+el.style.border=`1px solid ${c[t]}44`;el.style.background=bg[t];el.style.color=c[t];el.innerHTML=html;
 }
 async function submitCard(){
-  if(busy.sub)return;
-  const code=document.getElementById('cCode').value.trim(),serial=document.getElementById('cSerial').value.trim();
-  let err=false;
-  if(!code||code.replace(/\D/g,'').length<9){document.getElementById('cCode').classList.add('err');err=true}else document.getElementById('cCode').classList.remove('err');
-  if(!serial||serial.replace(/\D/g,'').length<9){document.getElementById('cSerial').classList.add('err');err=true}else document.getElementById('cSerial').classList.remove('err');
-  if(err){toast('Kiểm tra lại mã thẻ và serial!','e');return}
-  busy.sub=true;
-  const btn=document.getElementById('btnSub'),txt=document.getElementById('subTxt');
-  btn.disabled=true;txt.innerHTML='<span class="bspin" style="border-top-color:#000;border-color:rgba(0,0,0,.2);border-top-color:#000"></span> Đang nạp...';
-  setCst('loading','<span class="spin"></span> Đang xử lý thẻ...');
-  const reqId='bx_'+Date.now()+'_'+Math.random().toString(36).slice(2,7);
-  try{
-    // Gọi qua backend — key được giữ bí mật trong server
-    const r=await fetch(`${BACKEND}/api/charge`,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({telco:selNet,code,serial,amount:selAmt,pkg:String(selPkg)}),
-      signal:AbortSignal.timeout(18000)});
-    const d=await r.json();
-    if(d.ok&&d.key){
-      activateVIPLocal(d.days);renderBatch();
-      setCst('success',`<div style="margin-bottom:8px">✓ Nạp <b>${(d.amount||selAmt).toLocaleString('vi-VN')}đ</b> thành công! VIP <b>${d.days>=36500?'Vĩnh viễn':d.days+' ngày'}</b> kích hoạt.</div><div style="font-size:.68rem;color:var(--mu);margin-bottom:8px">Lưu key để dùng trên thiết bị khác:</div><div class="key-res">${d.key}</div><button class="btn-cpkey" onclick="cp('${escj(d.key)}')">⧉ Copy mã VIP</button>`);
-      toast('★ VIP kích hoạt thành công!','s');
-    }else if(d.pending){
-      setCst('loading','⏳ Thẻ đang chờ duyệt (~5 phút)...');
-      setTimeout(()=>checkPending(d.reqId),30000);
-    }else{setCst('error',`✗ ${d.error||'Thẻ không hợp lệ hoặc đã dùng.'}`);toast('✗ Nạp thất bại','e')}
-  }catch{setCst('error','✗ Không kết nối backend. Chạy node server.js trước!');toast('✗ Backend chưa chạy','e')}
-  btn.disabled=false;txt.innerHTML='💳 Nạp thẻ &amp; Nhận key VIP';busy.sub=false;
+if(busy.sub)return;
+const code=document.getElementById(‘cCode’).value.trim(),serial=document.getElementById(‘cSerial’).value.trim();
+let err=false;
+if(!code||code.replace(/\D/g,’’).length<9){document.getElementById(‘cCode’).classList.add(‘err’);err=true}else document.getElementById(‘cCode’).classList.remove(‘err’);
+if(!serial||serial.replace(/\D/g,’’).length<9){document.getElementById(‘cSerial’).classList.add(‘err’);err=true}else document.getElementById(‘cSerial’).classList.remove(‘err’);
+if(err){toast(‘Kiểm tra lại mã thẻ và serial!’,‘e’);return}
+busy.sub=true;
+const btn=document.getElementById(‘btnSub’),txt=document.getElementById(‘subTxt’);
+btn.disabled=true;txt.innerHTML=’<span class="bspin" style="border-top-color:#000;border-color:rgba(0,0,0,.2);border-top-color:#000"></span> Đang nạp…’;
+setCst(‘loading’,’<span class="spin"></span> Đang xử lý thẻ…’);
+const reqId=‘bx_’+Date.now()+’_’+Math.random().toString(36).slice(2,7);
+try{
+// Gọi qua backend — key được giữ bí mật trong server
+const r=await fetch(`${BACKEND}/api/charge`,{method:‘POST’,headers:{‘Content-Type’:‘application/json’},
+body:JSON.stringify({telco:selNet,code,serial,amount:selAmt,pkg:String(selPkg)}),
+signal:AbortSignal.timeout(18000)});
+const d=await r.json();
+if(d.ok&&d.key){
+activateVIPLocal(d.days);renderBatch();
+setCst(‘success’,`<div style="margin-bottom:8px">✓ Nạp <b>${(d.amount||selAmt).toLocaleString('vi-VN')}đ</b> thành công! VIP <b>${d.days>=36500?'Vĩnh viễn':d.days+' ngày'}</b> kích hoạt.</div><div style="font-size:.68rem;color:var(--mu);margin-bottom:8px">Lưu key để dùng trên thiết bị khác:</div><div class="key-res">${d.key}</div><button class="btn-cpkey" onclick="cp('${escj(d.key)}')">⧉ Copy mã VIP</button>`);
+toast(‘★ VIP kích hoạt thành công!’,‘s’);
+}else if(d.pending){
+setCst(‘loading’,‘⏳ Thẻ đang chờ duyệt (~5 phút)…’);
+setTimeout(()=>checkPending(d.reqId),30000);
+}else{setCst(‘error’,`✗ ${d.error||'Thẻ không hợp lệ hoặc đã dùng.'}`);toast(‘✗ Nạp thất bại’,‘e’)}
+}catch{setCst(‘error’,‘✗ Không kết nối backend. Chạy node server.js trước!’);toast(‘✗ Backend chưa chạy’,‘e’)}
+btn.disabled=false;txt.innerHTML=‘💳 Nạp thẻ & Nhận key VIP’;busy.sub=false;
 }
 async function checkPending(reqId){
-  try{
-    const r=await fetch(`${BACKEND}/api/charge/check?reqId=${reqId}&pkg=${selPkg}`);
-    const d=await r.json();
-    if(d.ok&&d.key){activateVIPLocal(d.days);renderBatch();setCst('success',`<div style="margin-bottom:8px">✓ Duyệt thành công! VIP <b>${d.days} ngày</b> kích hoạt.</div><div class="key-res">${d.key}</div><button class="btn-cpkey" onclick="cp('${escj(d.key)}')">⧉ Copy mã VIP</button>`);toast('★ VIP kích hoạt!','s')}
-    else if(d.pending)setTimeout(()=>checkPending(reqId),30000);
-  }catch{}
+try{
+const r=await fetch(`${BACKEND}/api/charge/check?reqId=${reqId}&pkg=${selPkg}`);
+const d=await r.json();
+if(d.ok&&d.key){activateVIPLocal(d.days);renderBatch();setCst(‘success’,`<div style="margin-bottom:8px">✓ Duyệt thành công! VIP <b>${d.days} ngày</b> kích hoạt.</div><div class="key-res">${d.key}</div><button class="btn-cpkey" onclick="cp('${escj(d.key)}')">⧉ Copy mã VIP</button>`);toast(‘★ VIP kích hoạt!’,‘s’)}
+else if(d.pending)setTimeout(()=>checkPending(reqId),30000);
+}catch{}
 }
-function makeKey(){const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';const s=()=>Array.from({length:4},()=>c[Math.floor(Math.random()*c.length)]).join('');return`BYPASSX-${s()}-${s()}-${s()}`}
+function makeKey(){const c=‘ABCDEFGHJKLMNPQRSTUVWXYZ23456789’;const s=()=>Array.from({length:4},()=>c[Math.floor(Math.random()*c.length)]).join(’’);return`BYPASSX-${s()}-${s()}-${s()}`}
 
 // key activate
 async function activateKey(){
-  if(busy.act)return;
-  const key=document.getElementById('keyInput').value.trim().toUpperCase();
-  const ki=document.getElementById('keyInput');
-  if(!key.startsWith('BYPASSX-')){ki.classList.add('err');toast('Key không đúng định dạng!','e');setTimeout(()=>ki.classList.remove('err'),1500);return}
-  busy.act=true;
-  const btn=document.getElementById('btnAct');btn.disabled=true;btn.textContent='Đang kiểm tra...';
-  try{
-    const r=await fetch(`${BACKEND}/api/key/validate`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key}),signal:AbortSignal.timeout(8000)});
-    const d=await r.json();
-    if(d.ok){activateVIPLocal(d.days);renderBatch();closeModal();toast(`★ VIP ${d.days>=36500?'Vĩnh viễn':d.days+' ngày'} kích hoạt!`,'s')}
-    else{ki.classList.add('err');toast(d.error||'Key không hợp lệ!','e');setTimeout(()=>ki.classList.remove('err'),1500)}
-  }catch{
-    // fallback demo keys khi backend chưa chạy
-    if(DEMO_KEYS.includes(key)){activateVIPLocal(7);renderBatch();closeModal();toast('★ VIP 7 ngày kích hoạt!','s')}
-    else{toast('Key không hợp lệ hoặc backend chưa chạy!','e');ki.classList.add('err');setTimeout(()=>ki.classList.remove('err'),1500)}
-  }
-  btn.disabled=false;btn.textContent='Kích hoạt VIP';busy.act=false;
+if(busy.act)return;
+const key=document.getElementById(‘keyInput’).value.trim().toUpperCase();
+const ki=document.getElementById(‘keyInput’);
+if(!key.startsWith(‘BYPASSX-’)){ki.classList.add(‘err’);toast(‘Key không đúng định dạng!’,‘e’);setTimeout(()=>ki.classList.remove(‘err’),1500);return}
+busy.act=true;
+const btn=document.getElementById(‘btnAct’);btn.disabled=true;btn.textContent=‘Đang kiểm tra…’;
+try{
+const r=await fetch(`${BACKEND}/api/key/validate`,{method:‘POST’,headers:{‘Content-Type’:‘application/json’},body:JSON.stringify({key}),signal:AbortSignal.timeout(8000)});
+const d=await r.json();
+if(d.ok){activateVIPLocal(d.days);renderBatch();closeModal();toast(`★ VIP ${d.days>=36500?'Vĩnh viễn':d.days+' ngày'} kích hoạt!`,‘s’)}
+else{ki.classList.add(‘err’);toast(d.error||‘Key không hợp lệ!’,‘e’);setTimeout(()=>ki.classList.remove(‘err’),1500)}
+}catch{
+// fallback demo keys khi backend chưa chạy
+if(DEMO_KEYS.includes(key)){activateVIPLocal(7);renderBatch();closeModal();toast(‘★ VIP 7 ngày kích hoạt!’,‘s’)}
+else{toast(‘Key không hợp lệ hoặc backend chưa chạy!’,‘e’);ki.classList.add(‘err’);setTimeout(()=>ki.classList.remove(‘err’),1500)}
+}
+btn.disabled=false;btn.textContent=‘Kích hoạt VIP’;busy.act=false;
 }
 
 // splash
 let splashP=0;
 function goSlide(n){
-  document.getElementById('ss'+splashP).style.display='none';
-  document.getElementById('sd'+splashP).classList.remove('active');
-  splashP=n;
-  document.getElementById('ss'+splashP).style.display='';
-  document.getElementById('sd'+splashP).classList.add('active');
-  document.getElementById('sSlides').scrollTop=0;
+document.getElementById(‘ss’+splashP).style.display=‘none’;
+document.getElementById(‘sd’+splashP).classList.remove(‘active’);
+splashP=n;
+document.getElementById(‘ss’+splashP).style.display=’’;
+document.getElementById(‘sd’+splashP).classList.add(‘active’);
+document.getElementById(‘sSlides’).scrollTop=0;
 }
-function closeSplash(){document.getElementById('splashModal').classList.remove('open');localStorage.setItem('bx_seen','1')}
+function closeSplash(){document.getElementById(‘splashModal’).classList.remove(‘open’);localStorage.setItem(‘bx_seen’,‘1’)}
 
 // history
-function addHist(src,dest){hist.unshift({src,dest});if(hist.length>30)hist=hist.slice(0,30);localStorage.setItem('bx_hist',JSON.stringify(hist));renderHist()}
-function clearHist(){hist=[];localStorage.removeItem('bx_hist');renderHist();toast('Đã xóa lịch sử')}
+function addHist(src,dest){hist.unshift({src,dest});if(hist.length>30)hist=hist.slice(0,30);localStorage.setItem(‘bx_hist’,JSON.stringify(hist));renderHist()}
+function clearHist(){hist=[];localStorage.removeItem(‘bx_hist’);renderHist();toast(‘Đã xóa lịch sử’)}
 function renderHist(){
-  const el=document.getElementById('histList');
-  if(!hist.length){el.innerHTML='<div class="empty">Chưa có lịch sử bypass nào.</div>';return}
-  el.innerHTML=hist.map((h,i)=>`<div class="hi"><div class="hdot"></div><div class="htxt"><div class="hsrc">${esc(h.src)}</div><div class="hdst">→ ${esc(h.dest)}</div></div><button class="hbtn" onclick="reuseHist(${i})">Dùng lại</button></div>`).join('');
+const el=document.getElementById(‘histList’);
+if(!hist.length){el.innerHTML=’<div class="empty">Chưa có lịch sử bypass nào.</div>’;return}
+el.innerHTML=hist.map((h,i)=>`<div class="hi"><div class="hdot"></div><div class="htxt"><div class="hsrc">${esc(h.src)}</div><div class="hdst">→ ${esc(h.dest)}</div></div><button class="hbtn" onclick="reuseHist(${i})">Dùng lại</button></div>`).join(’’);
 }
-function reuseHist(i){document.getElementById('linkInput').value=hist[i].src;switchTab('single');showResult('success',hist[i].dest);window.scrollTo({top:0,behavior:'smooth'})}
+function reuseHist(i){document.getElementById(‘linkInput’).value=hist[i].src;switchTab(‘single’);showResult(‘success’,hist[i].dest);window.scrollTo({top:0,behavior:‘smooth’})}
 
 // in-app browser
-let currentBrowserUrl='';
+let currentBrowserUrl=’’;
 function openInApp(url){
-  currentBrowserUrl=url;
-  const modal=document.getElementById('browserModal');
-  const frame=document.getElementById('browserFrame');
-  const loading=document.getElementById('browserLoading');
-  const fallback=document.getElementById('browserFallback');
-  const urlBar=document.getElementById('browserUrl');
-  const openBtn=document.getElementById('browserOpenBtn');
-  const fallbackLink=document.getElementById('fallbackLink');
+currentBrowserUrl=url;
+const modal=document.getElementById(‘browserModal’);
+const frame=document.getElementById(‘browserFrame’);
+const loading=document.getElementById(‘browserLoading’);
+const fallback=document.getElementById(‘browserFallback’);
+const urlBar=document.getElementById(‘browserUrl’);
+const openBtn=document.getElementById(‘browserOpenBtn’);
+const fallbackLink=document.getElementById(‘fallbackLink’);
 
-  // setup
-  urlBar.textContent=url;
-  openBtn.href=url;
-  fallbackLink.href=url;
-  fallback.style.display='none';
-  frame.style.display='block';
-  loading.style.display='block';
+// setup
+urlBar.textContent=url;
+openBtn.href=url;
+fallbackLink.href=url;
+fallback.style.display=‘none’;
+frame.style.display=‘block’;
+loading.style.display=‘block’;
 
-  // load
-  frame.src=url;
-  modal.classList.add('open');
-  document.body.style.overflow='hidden';
+// load
+frame.src=url;
+modal.classList.add(‘open’);
+document.body.style.overflow=‘hidden’;
 
-  // detect nếu iframe bị chặn (X-Frame-Options)
-  const timer=setTimeout(()=>{
-    try{
-      // nếu đọc được contentDocument thì ok
-      const doc=frame.contentDocument||frame.contentWindow.document;
-      if(!doc||doc.URL==='about:blank'||doc.body.innerHTML===''){
-        showFallback();
-      }
-    }catch(e){
-      // cross-origin error = trang đã load nhưng chặn đọc = ok
-    }
-    loading.style.display='none';
-  },3000);
+// detect nếu iframe bị chặn (X-Frame-Options)
+const timer=setTimeout(()=>{
+try{
+// nếu đọc được contentDocument thì ok
+const doc=frame.contentDocument||frame.contentWindow.document;
+if(!doc||doc.URL===‘about:blank’||doc.body.innerHTML===’’){
+showFallback();
+}
+}catch(e){
+// cross-origin error = trang đã load nhưng chặn đọc = ok
+}
+loading.style.display=‘none’;
+},3000);
 
-  frame.onload=()=>{
-    clearTimeout(timer);
-    loading.style.display='none';
-    try{
-      const doc=frame.contentDocument||frame.contentWindow.document;
-      if(doc.body&&doc.body.innerHTML==='')showFallback();
-    }catch{}
-  };
-  frame.onerror=()=>{clearTimeout(timer);loading.style.display='none';showFallback()};
+frame.onload=()=>{
+clearTimeout(timer);
+loading.style.display=‘none’;
+try{
+const doc=frame.contentDocument||frame.contentWindow.document;
+if(doc.body&&doc.body.innerHTML===’’)showFallback();
+}catch{}
+};
+frame.onerror=()=>{clearTimeout(timer);loading.style.display=‘none’;showFallback()};
 }
 function showFallback(){
-  document.getElementById('browserFrame').style.display='none';
-  document.getElementById('browserFallback').style.display='flex';
+document.getElementById(‘browserFrame’).style.display=‘none’;
+document.getElementById(‘browserFallback’).style.display=‘flex’;
 }
 function closeBrowser(){
-  const modal=document.getElementById('browserModal');
-  modal.classList.remove('open');
-  document.getElementById('browserFrame').src='about:blank';
-  document.getElementById('browserLoading').style.display='none';
-  document.getElementById('browserFallback').style.display='none';
-  document.getElementById('browserFrame').style.display='block';
-  document.body.style.overflow='';
+const modal=document.getElementById(‘browserModal’);
+modal.classList.remove(‘open’);
+document.getElementById(‘browserFrame’).src=‘about:blank’;
+document.getElementById(‘browserLoading’).style.display=‘none’;
+document.getElementById(‘browserFallback’).style.display=‘none’;
+document.getElementById(‘browserFrame’).style.display=‘block’;
+document.body.style.overflow=’’;
 }
 function copyBrowserUrl(){cp(currentBrowserUrl)}
 
 // utils
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-function escj(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
-function cp(u){navigator.clipboard.writeText(u).then(()=>toast('✓ Đã copy!','s')).catch(()=>toast('Copy thất bại','e'))}
+function esc(s){return String(s).replace(/&/g,’&’).replace(/</g,’<’).replace(/>/g,’>’).replace(/”/g,’"’)}
+function escj(s){return String(s).replace(/\/g,’\\’).replace(/’/g,”\’”)}
+function cp(u){navigator.clipboard.writeText(u).then(()=>toast(‘✓ Đã copy!’,‘s’)).catch(()=>toast(‘Copy thất bại’,‘e’))}
 let toastT;
-function toast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(type?' '+type:'');t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2400)}
+function toast(msg,type=’’){const t=document.getElementById(‘toast’);t.textContent=msg;t.className=‘toast’+(type?’ ‘+type:’’);t.classList.add(‘show’);clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove(‘show’),2400)}
 </script>
+
 </body>
 </html>
