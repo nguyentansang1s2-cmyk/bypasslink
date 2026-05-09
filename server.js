@@ -48,6 +48,15 @@ function validateUrl(url) {
 
 // ── ROUTES ──
 
+app.get('/', (req, res) => {
+  res.send('BypassX backend đang chạy ngon 😎');
+});
+
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({ ok: true, time: new Date().toISOString() });
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ ok: true, time: new Date().toISOString() });
