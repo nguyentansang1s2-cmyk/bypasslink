@@ -13,7 +13,7 @@ const app = express();
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors({ origin: '*' }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'frontend')));
+app.use(express.static(__dirname));
 
 // ── IN-MEMORY STORE (thay bằng DB khi production) ──
 const keys    = new Map(); // key -> { days, used, createdAt }
@@ -49,7 +49,7 @@ function validateUrl(url) {
 
 // ── ROUTES ──
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'bypass.html'));
+  res.sendFile(path.join(__dirname, 'bypass.html'));
 });
 
 // Health check
