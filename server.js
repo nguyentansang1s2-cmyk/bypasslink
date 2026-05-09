@@ -1,3 +1,4 @@
+const path = require('path');
 require('dotenv').config();
 const express    = require('express');
 const cors       = require('cors');
@@ -12,7 +13,7 @@ const app = express();
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors({ origin: '*' }));
 app.use(express.json());
-app.use(express.static('../frontend'));
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 // ── IN-MEMORY STORE (thay bằng DB khi production) ──
 const keys    = new Map(); // key -> { days, used, createdAt }
@@ -47,14 +48,8 @@ function validateUrl(url) {
 }
 
 // ── ROUTES ──
-
 app.get('/', (req, res) => {
-  res.send('BypassX backend đang chạy ngon 😎');
-});
-
-// Health check
-app.get('/api/health', (req, res) => {
-  res.json({ ok: true, time: new Date().toISOString() });
+  res.sendFile(path.join(__dirname, 'frontend', 'bypass.html'));
 });
 
 // Health check
