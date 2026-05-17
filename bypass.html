@@ -539,19 +539,22 @@ function fillLinkVIP(el,url){
 const BACKEND = 'https://bypasslink-5.onrender.com';
 
 async function bypassURL(url){
-  // 1. Thử qua backend trước (không bị CORS, hỗ trợ nhiều link hơn)
+  // 1. Thử qua backend trước
   try{
     const r=await fetch(`${BACKEND}/api/bypass`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({url}),
-      signal:AbortSignal.timeout(12000)
+      signal:AbortSignal.timeout(30000)  // 30s chờ server wake up
     });
     if(r.ok){
       const d=await r.json();
       if(d.ok&&d.result) return{ok:true,result:d.result};
+      if(!d.ok) return{ok:false,error:d.error||'Không bypass được.'};
     }
-  }catch{}
+  }catch(e){
+    // backend timeout hoặc lỗi, fallback sang API trực tiếp
+  }
 
   // 2. Fallback: gọi thẳng API bypass công cộng
   const enc=encodeURIComponent(url);
@@ -571,7 +574,7 @@ async function bypassURL(url){
       if(res&&res.startsWith('http'))return{ok:true,result:res};
     }catch{}
   }
-  return{ok:false,error:'Không bypass được link này. Kiểm tra backend đã chạy chưa (node server.js) hoặc link không được hỗ trợ.'};
+  return{ok:false,error:'Không bypass được link này. API chưa hỗ trợ loại link này.'};
 }
 
 // single bypass
@@ -586,7 +589,13 @@ async function doBypass(){
   const btn=document.getElementById('btnBypass'),txt=document.getElementById('bpTxt');
   btn.disabled=true;txt.innerHTML='<span class="bspin"></span>';
   showResult('loading','');
+  // thông báo nếu chờ lâu
+  const wakeTimer=setTimeout(()=>{
+    const lbl=document.getElementById('rlbl');
+    if(lbl)lbl.innerHTML='<span class="spin"></span> Đang khởi động server (~20s lần đầu)...';
+  },5000);
   const d=await bypassURL(url);
+  clearTimeout(wakeTimer);
   btn.disabled=false;txt.textContent='⚡ Bypass';busy.bp=false;
   if(d.ok){
     showResult('success',d.result);
