@@ -75,7 +75,9 @@ app.post('/api/bypass', async function(req, res) {
     'https://api.bypass.vip/?url=' + enc,
     'https://bypass.city/api/bypass?url=' + enc,
     'https://bypass.bot/api?url=' + enc,
-    'https://bypassed.cc/api/bypass?url=' + enc
+    'https://bypassed.cc/api/bypass?url=' + enc,
+    'https://bypass.pm/bypass?url=' + enc,
+    'https://bypass.pm/bypass2?url=' + enc,
   ];
   for (var i = 0; i < apis.length; i++) {
     try {
